@@ -148,6 +148,23 @@ summary{cursor:pointer;font-weight:600}
 .callout{font-family:var(--f-display);font-weight:500;font-size:16px;line-height:1.35;padding:12px 14px;border-radius:8px;background:var(--gold-soft);border:1px solid #ecdca6;box-shadow:inset 3px 0 0 var(--gold);color:var(--ink)}
 .callout b{color:var(--gold-ink);font-weight:600}
 
+/* clan leaderboard */
+td.bad{color:var(--down)}
+a.pn{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line-strong);cursor:pointer}
+a.pn:hover{color:var(--blue-ink);border-bottom-color:var(--blue-mid)}
+a.pn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+tr.flash td{animation:flash 2s ease-out}
+@keyframes flash{0%,40%{background:#f7e7a8}100%{background:inherit}}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pod{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:4px;background:var(--panel);min-width:0;text-align:center}
+.pod.p1{background:var(--gold-soft);border-color:#ecdca6;box-shadow:inset 0 3px 0 var(--gold)}
+.pod .medal{font-size:24px;line-height:1}
+.pod .who{font-family:var(--f-display);font-weight:600;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod .tag{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink)}
+.pod small{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+#lb td.clan small{font-family:var(--f-mono);font-weight:500;color:var(--blue-ink);font-size:10.5px;margin-left:6px}
+@media (max-width:560px){.podium{grid-template-columns:1fr}.pod{grid-template-columns:auto minmax(0,1fr);text-align:left;align-items:center;column-gap:10px}.pod .medal{grid-row:span 3}}
+
 /* footer */
 footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--line);font-family:var(--f-mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
 footer .sig{color:var(--muted)}
@@ -206,12 +223,14 @@ footer .sig b{color:var(--gold-ink);font-weight:600}
     <div class="note" id="stand-note"></div>
   </section>
 
-  <section id="opp-sec" hidden>
-    <div class="head"><h2>Who's left to play</h2><span class="note">Everyone plays everyone once over 7 rounds</span></div>
-    <div class="tbl-wrap"><table style="min-width:0">
-      <thead><tr><th>Clan</th><th style="text-align:left">Still to face</th></tr></thead>
-      <tbody id="opp"></tbody>
+  <section id="lb-sec" hidden>
+    <div class="head"><h2>Clan leaderboard 🏆</h2><span class="note" id="lb-note"></span></div>
+    <div class="podium" id="podium"></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>#</th><th>Player</th><th>Stars</th><th>Hits</th><th>3★</th><th>Avg %</th><th>Missed</th><th>MVPs</th></tr></thead>
+      <tbody id="lb"></tbody>
     </table></div>
+    <div class="note">Ranked by total stars this CWL, then destruction, then whoever hit tougher bases. MVPs = rounds won as war MVP. Tap a name for their full war stats.</div>
   </section>
 
   <section id="rounds-sec" hidden>
@@ -230,12 +249,15 @@ footer .sig b{color:var(--gold-ink);font-weight:600}
 </div>
 
 <script>
-const SNAPSHOT = {"me":"Den of Thieves","league":"Master League II","offSeason":false,"season":"2026-11-01","groupState":"inWar","roster":30,"totalRounds":7,"promote":2,"demote":2,"clans":["BRIGHT FUTURE","FORTUNA","03’ Banshee","Valar Murghulis","Den of Thieves","ملوک الیل","العشرة مدرسة 2","HAK YOL İSLAM"],"myWar":{"round":2,"opponent":"HAK YOL İSLAM","endTime":"2026-11-04T16:48:32+00:00","roster":30,"done":23,"pending":[{"n":"Keith1972","th":18,"pos":3},{"n":"adi","th":18,"pos":17},{"n":"shield","th":18,"pos":18},{"n":"Hammad Khan","th":18,"pos":19},{"n":"Nikesh","th":17,"pos":26},{"n":"AlreadyGotTwo","th":18,"pos":27},{"n":"FRE@K$TONE","th":17,"pos":34}]},"dest":{"BRIGHT FUTURE":3209,"FORTUNA":4454,"03’ Banshee":4932,"Valar Murghulis":4460,"Den of Thieves":5103,"ملوک الیل":3755,"العشرة مدرسة 2":4637,"HAK YOL İSLAM":4894},"rounds":[{"n":1,"wars":[{"a":"FORTUNA","b":"العشرة مدرسة 2","aStars":62,"bStars":82,"aAtk":30,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":81.27,"bDestPct":92.97},{"a":"03’ Banshee","b":"Valar Murghulis","aStars":79,"bStars":68,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":91.9,"bDestPct":79.9},{"a":"BRIGHT FUTURE","b":"Den of Thieves","aStars":78,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":93.63,"bDestPct":98.27},{"a":"ملوک الیل","b":"HAK YOL İSLAM","aStars":69,"bStars":65,"aAtk":26,"bAtk":27,"status":"final","winner":"ملوک الیل","aDestPct":80.2,"bDestPct":81.63}]},{"n":2,"wars":[{"a":"FORTUNA","b":"ملوک الیل","aStars":55,"bStars":40,"aAtk":23,"bAtk":14,"status":"live","winner":"","aDestPct":67.2,"bDestPct":44.97},{"a":"BRIGHT FUTURE","b":"Valar Murghulis","aStars":12,"bStars":58,"aAtk":4,"bAtk":21,"status":"live","winner":"","aDestPct":13.33,"bDestPct":68.77},{"a":"Den of Thieves","b":"HAK YOL İSLAM","aStars":61,"bStars":67,"aAtk":23,"bAtk":26,"status":"live","winner":"","aDestPct":71.83,"bDestPct":81.5},{"a":"03’ Banshee","b":"العشرة مدرسة 2","aStars":54,"bStars":49,"aAtk":24,"bAtk":20,"status":"live","winner":"","aDestPct":72.5,"bDestPct":61.6}]},{"n":3,"wars":[{"a":"FORTUNA","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"03’ Banshee","b":"Den of Thieves","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"BRIGHT FUTURE","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"Valar Murghulis","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0}]},{"n":4,"wars":[{"a":"Den of Thieves","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":5,"wars":[{"a":"Den of Thieves","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"Valar Murghulis","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":6,"wars":[{"a":"Den of Thieves","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"03’ Banshee","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":7,"wars":[{"a":"Den of Thieves","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]}],"updated":"Nov 4, 12:57 AM CT","updatedISO":"2026-11-04T06:57:52+00:00","source":"api"};
+const SNAPSHOT = {"me":"Den of Thieves","league":"Master League II","offSeason":false,"season":"2026-11-01","groupState":"inWar","roster":30,"totalRounds":7,"promote":2,"demote":2,"clans":["BRIGHT FUTURE","FORTUNA","03’ Banshee","Valar Murghulis","Den of Thieves","ملوک الیل","العشرة مدرسة 2","HAK YOL İSLAM"],"myWar":{"round":2,"opponent":"HAK YOL İSLAM","endTime":"2026-11-04T16:48:32+00:00","roster":30,"done":23,"pending":[{"n":"Keith1972","th":18,"pos":3},{"n":"adi","th":18,"pos":17},{"n":"shield","th":18,"pos":18},{"n":"Hammad Khan","th":18,"pos":19},{"n":"Nikesh","th":17,"pos":26},{"n":"AlreadyGotTwo","th":18,"pos":27},{"n":"FRE@K$TONE","th":17,"pos":34}]},"dest":{"BRIGHT FUTURE":3209,"FORTUNA":4454,"03’ Banshee":5025,"Valar Murghulis":4460,"Den of Thieves":5103,"ملوک الیل":3755,"العشرة مدرسة 2":4637,"HAK YOL İSLAM":4894},"rounds":[{"n":1,"wars":[{"a":"FORTUNA","b":"العشرة مدرسة 2","aStars":62,"bStars":82,"aAtk":30,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":81.27,"bDestPct":92.97},{"a":"03’ Banshee","b":"Valar Murghulis","aStars":79,"bStars":68,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":91.9,"bDestPct":79.9},{"a":"BRIGHT FUTURE","b":"Den of Thieves","aStars":78,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":93.63,"bDestPct":98.27},{"a":"ملوک الیل","b":"HAK YOL İSLAM","aStars":69,"bStars":65,"aAtk":26,"bAtk":27,"status":"final","winner":"ملوک الیل","aDestPct":80.2,"bDestPct":81.63}]},{"n":2,"wars":[{"a":"FORTUNA","b":"ملوک الیل","aStars":55,"bStars":40,"aAtk":23,"bAtk":14,"status":"live","winner":"","aDestPct":67.2,"bDestPct":44.97},{"a":"BRIGHT FUTURE","b":"Valar Murghulis","aStars":12,"bStars":58,"aAtk":4,"bAtk":21,"status":"live","winner":"","aDestPct":13.33,"bDestPct":68.77},{"a":"Den of Thieves","b":"HAK YOL İSLAM","aStars":61,"bStars":67,"aAtk":23,"bAtk":26,"status":"live","winner":"","aDestPct":71.83,"bDestPct":81.5},{"a":"03’ Banshee","b":"العشرة مدرسة 2","aStars":56,"bStars":49,"aAtk":25,"bAtk":20,"status":"live","winner":"","aDestPct":75.6,"bDestPct":61.6}]},{"n":3,"wars":[{"a":"FORTUNA","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"03’ Banshee","b":"Den of Thieves","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"BRIGHT FUTURE","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"Valar Murghulis","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0}]},{"n":4,"wars":[{"a":"Den of Thieves","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":5,"wars":[{"a":"Den of Thieves","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"Valar Murghulis","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":6,"wars":[{"a":"Den of Thieves","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"03’ Banshee","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":7,"wars":[{"a":"Den of Thieves","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]}],"updated":"Nov 4, 7:04 AM CT","updatedISO":"2026-11-04T07:04:30+00:00","source":"api","board":{"season":"2026-11-01","wars":2,"cols":["n","th","wars","att","s","tri","avgD","miss","mvps"],"rows":[["King_Savage_999",18,2,2,6,2,100.0,0,1],["Archie",18,2,2,6,2,100.0,0,0],["mr razzi",18,2,2,6,2,100.0,0,0],["亗 Khnum-Atum~ra",18,2,2,6,2,100.0,0,0],["KingTrents⚡️",18,2,2,6,2,100.0,0,0],["Fatal Justice",18,2,2,6,2,100.0,0,0],["Lethal Formula",18,2,2,6,2,100.0,0,0],["BigDog",18,2,2,6,2,100.0,0,0],["PsuedoVirus",18,2,2,6,2,100.0,0,0],["DestroX",18,2,2,6,2,100.0,0,0],["丂卄么几ズ卂尺",17,2,2,6,2,100.0,0,0],["Why Not!",17,2,2,6,2,100.0,0,0],["Alf",17,2,2,6,2,100.0,0,0],["BT 2",17,2,2,6,2,100.0,0,0],["greenland",16,2,2,6,2,100.0,0,0],["Violent Desire",17,2,2,6,2,100.0,0,0],["niczll",18,2,2,5,1,98.5,0,0],["Tribe of Judah",17,2,2,5,1,94.0,0,0],["Hateful",18,2,2,5,1,91.5,0,0],["BT",18,2,2,5,1,91.0,0,0],["Iron Buff",18,2,2,4,1,84.5,0,0],["BIKE-Ñ=UFC+24",18,2,2,4,0,84.0,0,0],["huskernsooner",18,2,2,4,0,67.5,0,0],["Keith1972",18,2,1,3,1,100.0,0,0],["Hammad Khan",18,2,1,3,1,100.0,0,0],["Nikesh",17,2,1,3,1,100.0,0,0],["AlreadyGotTwo",18,2,1,3,1,100.0,0,0],["FRE@K$TONE",17,2,1,3,1,100.0,0,0],["adi",18,2,1,1,0,92.0,0,0],["shield",18,2,1,1,0,89.0,0,0]]}};
 let ME = SNAPSHOT.me || "Den of Thieves";
 let state = structuredClone(SNAPSHOT), db = null, docRef = null, editing = null, saving = false, canWrite = false;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const nm = s => `<bdi>${esc(s)}</bdi>`;
+const ME_PLAYER = "KingTrents⚡️";
+const statsLink = s => `<a class="pn" href="index.html#player=${encodeURIComponent(s)}">${nm(s)}</a>`;
+const lbLink = s => `<a class="pn" href="#lb" data-lb="${esc(s)}">${nm(s)}</a>`;
 
 function setStatus(msg){ const el=$("status"); if(!msg){el.hidden=true;return;} el.hidden=false; el.textContent=msg; }
 
@@ -352,11 +374,8 @@ function render(){
     ? `Projection is based on ${finishedMin} finished war${finishedMin===1?'':'s'} per clan, so treat it as rough until around Round 4. Dashed lines mark the promotion and demotion cuts. Ties go to destruction.`
     : `Dashed lines mark the promotion and demotion cuts. Ties go to destruction.`;
 
-  // remaining opponents
-  const faced={}; s.clans.forEach(c=>faced[c]=new Set());
-  (s.rounds||[]).forEach(r=>(r.wars||[]).forEach(w=>{faced[w.a]?.add(w.b);faced[w.b]?.add(w.a);}));
-  $("opp-sec").hidden=false;
-  $("opp").innerHTML=rows.map(t=>`<tr class="${t.clan===ME?'me':''}"><td class="clan" style="text-align:left">${nm(t.clan)}</td><td style="text-align:left;white-space:normal">${s.clans.filter(c=>c!==t.clan&&!faced[t.clan].has(c)).map(nm).join(", ")||'All scheduled'}</td></tr>`).join("");
+  // clan leaderboard (this CWL)
+  renderBoard();
 
   // rounds
   $("rounds-sec").hidden=false;
@@ -406,6 +425,24 @@ function editor(r,ri){
   </form>`;
 }
 
+/* ---------- clan leaderboard ---------- */
+function renderBoard(){
+  const b=state&&state.board, sec=$("lb-sec");
+  if(!(b&&b.rows&&b.rows.length)){ sec.hidden=true; return; }
+  sec.hidden=false;
+  const C=b.cols, rows=b.rows.map(r=>Object.fromEntries(C.map((k,i)=>[k,r[i]])));
+  $("lb-note").textContent=`${b.wars} round${b.wars===1?"":"s"} counted · updates live`;
+  $("podium").innerHTML=rows.slice(0,3).map((r,i)=>`<div class="pod p${i+1}"><span class="medal">${["🥇","🥈","🥉"][i]}</span><span class="tag">${i===0?"CWL MVP":"#"+(i+1)}</span><span class="who">${statsLink(r.n)}</span><small>${r.s}★ in ${r.att} hit${r.att===1?"":"s"} · ${r.tri} triple${r.tri===1?"":"s"} · ${r.avgD??"–"}%</small></div>`).join("");
+  $("lb").innerHTML=rows.map((r,i)=>`<tr class="${r.n===ME_PLAYER?'me':''}" data-lb="${esc(r.n)}"><td class="pos num">${i+1}</td><td class="clan">${statsLink(r.n)}<small>TH${esc(r.th)}</small></td><td class="num"><b>${r.s}</b></td><td class="num">${r.att}</td><td class="num">${r.tri}</td><td class="num">${r.avgD??"–"}</td><td class="num ${r.miss?'bad':''}">${r.miss}</td><td class="num">${r.mvps?"⭐".repeat(Math.min(r.mvps,3))+(r.mvps>3?" x"+r.mvps:""):"–"}</td></tr>`).join("");
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("a.pn[data-lb]"); if(!a) return;
+  e.preventDefault();
+  const tr=[...document.querySelectorAll("#lb tr")].find(t=>t.dataset.lb===a.dataset.lb); if(!tr) return;
+  tr.scrollIntoView({behavior:"smooth",block:"center"});
+  tr.classList.remove("flash"); void tr.offsetWidth; tr.classList.add("flash");
+});
+
 /* ---------- still to attack ---------- */
 const QUIPS=["The vault won't crack itself.","Clock's ticking, thieves.","Every star counts. Yours too.","Promotion is a team heist."];
 function renderTodo(){
@@ -428,7 +465,7 @@ function renderTodo(){
   const quip=QUIPS[(m.round+left)%QUIPS.length];
   el.innerHTML=`<div class="todo-h"><h2>Still to attack</h2><span class="left">${left} left · Round ${m.round} vs ${nm(m.opponent)}</span></div>
     <div class="pips" style="--n:${roster}" role="img" aria-label="${done} of ${roster} attacks used">${pips}</div>
-    <div class="chips">${m.pending.map(p=>`<span class="chip"><span>${nm(p.n)}</span><small>TH${esc(p.th)}</small></span>`).join("")}</div>
+    <div class="chips">${m.pending.map(p=>`<span class="chip"><span>${lbLink(p.n)}</span><small>TH${esc(p.th)}</small></span>`).join("")}</div>
     <div class="todo-f"><span>${esc(quip)}</span><span>${esc(ends)}</span></div>`;
 }
 setInterval(()=>{ if(state) renderTodo(); }, 30000);
