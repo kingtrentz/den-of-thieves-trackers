@@ -1,0 +1,499 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0;background:#fff;color:#0d1a2b}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+
+<title>Den of Thieves CWL</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: "vault ops" console. White ground, light-blue instrument panels, gold reserved for Den of Thieves and key figures. */
+:root{
+  --bg:#ffffff; --panel:#f2f8fd; --panel-2:#e6f1fa; --line:#d6e4f0; --line-strong:#b9d3ea;
+  --ink:#0d1a2b; --muted:#5a6b80; --faint:#8a9bb0;
+  --blue:#7cc0ee; --blue-mid:#3d95d6; --blue-ink:#1b5f95;
+  --gold:#c9a227; --gold-ink:#8a6a0c; --gold-soft:#fbf4dd;
+  --up:#16824a; --up-soft:#e1f4e9; --down:#c0392b; --down-soft:#fbe5e2; --live:#c96a07; --live-soft:#fdeedd;
+  --f-display:"Chakra Petch","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0}
+.wrap{max-width:780px;margin:0 auto;padding-block:22px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;margin:0;letter-spacing:.01em;text-wrap:balance}
+h1{font-size:32px;line-height:1.05}
+h2{font-size:19px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono)}
+.label{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500}
+.note{font-size:13px;color:var(--muted)}
+.xlink{font-family:var(--f-mono);font-size:12px;text-decoration:none;border:1px solid var(--line-strong);padding:4px 9px;border-radius:6px;align-self:flex-start;margin-top:4px;color:var(--blue-ink)}
+.xlink:hover{background:var(--panel)}
+footer .legal{flex-basis:100%;font-size:10.5px;color:var(--faint);letter-spacing:0;line-height:1.4}
+footer .legal a{color:var(--muted)}
+.status{font-size:13px;padding:8px 12px;border-radius:6px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+section{display:flex;flex-direction:column;gap:10px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* header */
+header{display:flex;flex-direction:column;gap:6px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.dial{width:40px;height:40px;flex:none}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-ink)}
+.eyebrow b{color:var(--gold-ink);font-weight:600}
+.sub{color:var(--muted);font-size:13px}
+.upd{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:4px}
+.upd b{color:var(--ink);font-weight:600}
+.upd .warn{color:var(--live);font-weight:600}
+.upd span:first-child::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue-mid);margin-right:8px;vertical-align:1px;box-shadow:0 0 0 0 rgba(61,149,214,.5);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(61,149,214,.45)}70%{box-shadow:0 0 0 7px rgba(61,149,214,0)}100%{box-shadow:0 0 0 0 rgba(61,149,214,0)}}
+
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--blue)}
+.kpi:first-child::before{background:var(--gold)}
+.kpi .label{letter-spacing:.06em;white-space:nowrap}
+.kpi b{display:block;font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.1;margin-top:2px}
+.kpi.good b{color:var(--up)} .kpi.bad b{color:var(--down)}
+
+/* standings */
+.tbl-wrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{padding:9px 10px;text-align:right;white-space:nowrap}
+th{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:500;background:var(--panel);border-bottom:1px solid var(--line)}
+td{border-bottom:1px solid var(--line)}
+td.num,td .num{font-family:var(--f-mono);font-size:14px}
+tr:last-child td{border-bottom:0}
+th:nth-child(2),td:nth-child(2){text-align:left}
+td.pos{width:44px;font-weight:600}
+tr.z-up td.pos{color:var(--up);box-shadow:inset 3px 0 0 var(--up)}
+tr.z-down td.pos{color:var(--down);box-shadow:inset 3px 0 0 var(--down)}
+tr.me td{background:var(--gold-soft)}
+tr.me td.pos{box-shadow:inset 3px 0 0 var(--gold);color:var(--gold-ink)}
+tr.me td.clan{color:var(--gold-ink)}
+tr.cut td{border-bottom:1px dashed var(--line-strong)}
+.clan{font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+
+/* wars */
+.round{background:var(--bg);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.round-h{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--panel);border-bottom:1px solid var(--line);gap:8px}
+.round-h h3{font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+.war{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.round-h + .war{border-top:0}
+.side{display:flex;flex-direction:column;min-width:0}
+.side.r{text-align:right}
+.side .n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side .a{font-family:var(--f-mono);font-size:11.5px;color:var(--faint)}
+.score{font-family:var(--f-display);font-weight:600;font-size:20px;display:flex;gap:7px;align-items:center}
+.score .w{color:var(--up)} .score .l{color:var(--faint)}
+.war.mine{background:var(--gold-soft);box-shadow:inset 3px 0 0 var(--gold)}
+.pill{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.pill.final{background:var(--panel-2);color:var(--blue-ink)}
+.pill.live{background:var(--live-soft);color:var(--live)}
+.pill.upcoming{background:transparent;color:var(--faint);border:1px solid var(--line)}
+
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line-strong);background:var(--bg);border-radius:6px;padding:6px 10px;font-weight:600;font-size:13px;color:var(--blue-ink)}
+button:hover{background:var(--panel)}
+button.primary{background:var(--blue-ink);color:#fff;border-color:var(--blue-ink)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.edit{border:0;background:none;color:var(--faint);padding:4px 6px}
+
+/* editor */
+.editor{padding:12px;border-top:1px solid var(--line);background:var(--panel);display:grid;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field input,.field select{border:1px solid var(--line-strong);background:var(--bg);border-radius:6px;padding:7px 9px;width:100%;min-width:0;font-family:var(--f-mono)}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+/* live card */
+.live-card{background:linear-gradient(180deg,var(--panel) 0%,var(--bg) 100%);border:1px solid var(--line-strong);border-radius:10px;padding:16px;display:grid;gap:12px}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:end}
+.vs > div:first-child .label{color:var(--gold-ink)}
+.vs .big{font-family:var(--f-display);font-weight:600;font-size:40px;line-height:1}
+.vs > div:first-child .big{color:var(--ink)}
+.bar{height:8px;border-radius:2px;background:var(--panel-2);overflow:hidden;display:flex}
+.bar span{background:linear-gradient(90deg,var(--gold),#e2c050)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;font-size:13.5px}
+.facts div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line-strong);padding-bottom:4px}
+.facts b{font-family:var(--f-mono);font-weight:600}
+.verdict{font-weight:600;font-family:var(--f-display);letter-spacing:.02em}
+.verdict.good{color:var(--up)} .verdict.bad{color:var(--down)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+summary{cursor:pointer;font-weight:600}
+.dest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+
+/* still to attack */
+.todo{border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;display:grid;gap:10px;background:var(--bg)}
+.todo-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.todo-h h2{font-size:17px}
+.todo-h .left{font-family:var(--f-mono);font-size:12px;color:var(--live);font-weight:600}
+.pips{display:grid;grid-template-columns:repeat(var(--n,30),minmax(0,1fr));gap:3px}
+.pips i{height:9px;border-radius:2px;background:var(--panel-2);border:1px solid var(--line-strong)}
+.pips i.on{background:var(--gold);border-color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:13px;font-weight:500;max-width:100%}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.chip small{font-family:var(--f-mono);font-size:10.5px;color:var(--blue-ink)}
+.todo-f{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.todo.clear{background:var(--up-soft);border-color:#bfe3cc}
+.todo.clear h2{color:var(--up)}
+
+/* off-season */
+.offseason{font-size:14px;padding:12px 14px;border-radius:8px;background:var(--panel);border:1px solid var(--line-strong);box-shadow:inset 3px 0 0 var(--blue-mid)}
+.offseason b{font-family:var(--f-display);font-weight:600}
+
+/* callout */
+.callout{font-family:var(--f-display);font-weight:500;font-size:16px;line-height:1.35;padding:12px 14px;border-radius:8px;background:var(--gold-soft);border:1px solid #ecdca6;box-shadow:inset 3px 0 0 var(--gold);color:var(--ink)}
+.callout b{color:var(--gold-ink);font-weight:600}
+
+/* footer */
+footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--line);font-family:var(--f-mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+footer .sig{color:var(--muted)}
+footer .sig b{color:var(--gold-ink);font-weight:600}
+
+@media (max-width:440px){.kpi b{font-size:23px}.facts{grid-template-columns:1fr}.dest-grid{grid-template-columns:1fr}h1{font-size:28px}.vs .big{font-size:34px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg class="dial" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="#c9a227" stroke-width="2"/>
+        <circle cx="20" cy="20" r="12.5" fill="#f2f8fd" stroke="#7cc0ee" stroke-width="1.5"/>
+        <g stroke="#3d95d6" stroke-width="1.4" stroke-linecap="round">
+          <line x1="20" y1="3.5" x2="20" y2="6.5"/><line x1="36.5" y1="20" x2="33.5" y2="20"/><line x1="20" y1="36.5" x2="20" y2="33.5"/><line x1="3.5" y1="20" x2="6.5" y2="20"/>
+          <line x1="31.7" y1="8.3" x2="29.6" y2="10.4"/><line x1="31.7" y1="31.7" x2="29.6" y2="29.6"/><line x1="8.3" y1="31.7" x2="10.4" y2="29.6"/><line x1="8.3" y1="8.3" x2="10.4" y2="10.4"/>
+        </g>
+        <line x1="20" y1="20" x2="25.5" y2="13" stroke="#0d1a2b" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="2.4" fill="#c9a227"/>
+      </svg>
+      <div>
+        <div class="eyebrow">CWL Ops <b>//</b> <span id="eb-league">Master League II</span></div>
+        <h1>Den of Thieves</h1>
+      </div>
+    </div>
+    <div class="sub" id="season-sub">Top 2 promote, bottom 2 demote. +10 stars per war won. Stars lock when a war ends.</div>
+    <div class="upd num" id="upd"></div>
+    <a class="xlink" href="index.html">War stats →</a>
+  </header>
+
+  <section id="todo-sec" hidden>
+    <div class="todo" id="todo"></div>
+  </section>
+
+  <div class="callout">Make sure to get ur attacks in 🫡 <b>Everyone attack = we promote.</b> Simple.</div>
+
+  <div class="offseason" id="offseason" hidden></div>
+
+  <div id="status" class="status">Loading tracker data…</div>
+
+  <div class="strip" id="strip" hidden></div>
+
+  <section id="live-sec" hidden>
+    <div class="head"><h2>Current war</h2><span class="note" id="live-round"></span></div>
+    <div class="live-card" id="live"></div>
+  </section>
+
+  <section id="stand-sec" hidden>
+    <div class="head"><h2>Standings</h2><span class="note">Projection = current + pace on live wars + avg per remaining war</span></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>#</th><th>Clan</th><th>Stars</th><th>W–L</th><th>Dest.</th><th>Avg/war</th><th>Proj.</th></tr></thead>
+      <tbody id="stand"></tbody>
+    </table></div>
+    <div class="note" id="stand-note"></div>
+  </section>
+
+  <section id="opp-sec" hidden>
+    <div class="head"><h2>Who's left to play</h2><span class="note">Everyone plays everyone once over 7 rounds</span></div>
+    <div class="tbl-wrap"><table style="min-width:0">
+      <thead><tr><th>Clan</th><th style="text-align:left">Still to face</th></tr></thead>
+      <tbody id="opp"></tbody>
+    </table></div>
+  </section>
+
+  <section id="rounds-sec" hidden>
+    <div class="head"><h2>Rounds</h2><span class="note" id="rounds-note"></span></div>
+    <div id="rounds" style="display:flex;flex-direction:column;gap:12px"></div>
+  </section>
+
+  <details id="dest-sec" hidden>
+    <summary>Destruction totals (tiebreaker)</summary>
+    <p class="note">Copy these from the Group tab. Per-war destruction isn't on the Rounds tab, so this is entered as a running total.</p>
+    <div class="dest-grid" id="dest"></div>
+    <div class="row" style="margin-top:10px"><button class="primary" id="dest-save">Save totals</button></div>
+  </details>
+
+  <footer><span>Live data: official Clash of Clans API</span><span class="sig">by <b>kingtrent</b>⚡️🫡 x claude</span><span class="legal">This material is unofficial and is not endorsed by Supercell. For more information see <a href="https://supercell.com/fan-content-policy" target="_blank" rel="noopener">Supercell's Fan Content Policy</a>.</span></footer>
+</div>
+
+<script>
+const SNAPSHOT = {"me":"Den of Thieves","league":"Master League II","offSeason":false,"season":"2026-11-01","groupState":"inWar","roster":30,"totalRounds":7,"promote":2,"demote":2,"clans":["BRIGHT FUTURE","FORTUNA","03’ Banshee","Valar Murghulis","Den of Thieves","ملوک الیل","العشرة مدرسة 2","HAK YOL İSLAM"],"myWar":{"round":2,"opponent":"HAK YOL İSLAM","endTime":"2026-11-04T16:48:32+00:00","roster":30,"done":23,"pending":[{"n":"Keith1972","th":18,"pos":3},{"n":"adi","th":18,"pos":17},{"n":"shield","th":18,"pos":18},{"n":"Hammad Khan","th":18,"pos":19},{"n":"Nikesh","th":17,"pos":26},{"n":"AlreadyGotTwo","th":18,"pos":27},{"n":"FRE@K$TONE","th":17,"pos":34}]},"dest":{"BRIGHT FUTURE":3209,"FORTUNA":4354,"03’ Banshee":4732,"Valar Murghulis":4360,"Den of Thieves":5103,"ملوک الیل":3755,"العشرة مدرسة 2":4637,"HAK YOL İSLAM":4894},"rounds":[{"n":1,"wars":[{"a":"FORTUNA","b":"العشرة مدرسة 2","aStars":62,"bStars":82,"aAtk":30,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":81.27,"bDestPct":92.97},{"a":"03’ Banshee","b":"Valar Murghulis","aStars":79,"bStars":68,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":91.9,"bDestPct":79.9},{"a":"BRIGHT FUTURE","b":"Den of Thieves","aStars":78,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":93.63,"bDestPct":98.27},{"a":"ملوک الیل","b":"HAK YOL İSLAM","aStars":69,"bStars":65,"aAtk":26,"bAtk":27,"status":"final","winner":"ملوک الیل","aDestPct":80.2,"bDestPct":81.63}]},{"n":2,"wars":[{"a":"FORTUNA","b":"ملوک الیل","aStars":52,"bStars":40,"aAtk":22,"bAtk":14,"status":"live","winner":"","aDestPct":63.87,"bDestPct":44.97},{"a":"BRIGHT FUTURE","b":"Valar Murghulis","aStars":12,"bStars":55,"aAtk":4,"bAtk":20,"status":"live","winner":"","aDestPct":13.33,"bDestPct":65.43},{"a":"Den of Thieves","b":"HAK YOL İSLAM","aStars":61,"bStars":67,"aAtk":23,"bAtk":26,"status":"live","winner":"","aDestPct":71.83,"bDestPct":81.5},{"a":"03’ Banshee","b":"العشرة مدرسة 2","aStars":48,"bStars":49,"aAtk":22,"bAtk":20,"status":"live","winner":"","aDestPct":65.83,"bDestPct":61.6}]},{"n":3,"wars":[{"a":"FORTUNA","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"03’ Banshee","b":"Den of Thieves","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"BRIGHT FUTURE","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0},{"a":"Valar Murghulis","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":"","aDestPct":0.0,"bDestPct":0.0}]},{"n":4,"wars":[{"a":"Den of Thieves","b":"العشرة مدرسة 2","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":5,"wars":[{"a":"Den of Thieves","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"HAK YOL İSLAM","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"Valar Murghulis","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":6,"wars":[{"a":"Den of Thieves","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"03’ Banshee","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"FORTUNA","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]},{"n":7,"wars":[{"a":"Den of Thieves","b":"ملوک الیل","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"العشرة مدرسة 2","b":"BRIGHT FUTURE","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"HAK YOL İSLAM","b":"Valar Murghulis","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""},{"a":"03’ Banshee","b":"FORTUNA","aStars":0,"bStars":0,"aAtk":0,"bAtk":0,"status":"upcoming","winner":""}]}],"updated":"Nov 4, 12:34 AM CT","updatedISO":"2026-11-04T06:34:26+00:00","source":"api"};
+let ME = SNAPSHOT.me || "Den of Thieves";
+let state = structuredClone(SNAPSHOT), db = null, docRef = null, editing = null, saving = false, canWrite = false;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nm = s => `<bdi>${esc(s)}</bdi>`;
+
+function setStatus(msg){ const el=$("status"); if(!msg){el.hidden=true;return;} el.hidden=false; el.textContent=msg; }
+
+/* ---------- math ---------- */
+function warWinner(w){
+  if(w.status!=="final") return null;
+  if(w.winner) return w.winner;
+  if(w.aStars>w.bStars) return w.a; if(w.bStars>w.aStars) return w.b;
+  return null; // tie on stars, needs destruction override
+}
+function compute(s){
+  const roster = s.roster || 30, rounds = s.rounds || [], totalRounds = s.totalRounds || 7;
+  const T = {};
+  s.clans.forEach(c => T[c] = {clan:c, stars:0, bonus:0, w:0, l:0, finals:0, finalStars:0, liveProj:0, liveBonusExp:0, played:0, dest:(s.dest||{})[c] ?? 0});
+  let liveWars = [];
+  rounds.forEach(r => (r.wars||[]).forEach(w => {
+    if(w.status==="upcoming") return;
+    const A=T[w.a], B=T[w.b]; if(!A||!B) return;
+    A.stars+=w.aStars; B.stars+=w.bStars; A.played++; B.played++;
+    if(w.status==="final"){
+      A.finals++; B.finals++; A.finalStars+=w.aStars; B.finalStars+=w.bStars;
+      const win = warWinner(w);
+      if(win===w.a){A.bonus+=10;A.w++;B.l++;} else if(win===w.b){B.bonus+=10;B.w++;A.l++;}
+    } else if(w.status==="live"){
+      const pa = pace(w.aStars,w.aAtk,roster), pb = pace(w.bStars,w.bAtk,roster);
+      A.liveProj += pa - w.aStars; B.liveProj += pb - w.bStars;
+      if(pa>pb) A.liveBonusExp+=10; else if(pb>pa) B.liveBonusExp+=10; else {A.liveBonusExp+=5;B.liveBonusExp+=5;}
+      liveWars.push({r,w,pa,pb});
+    }
+  }));
+  const rows = Object.values(T).map(t => {
+    t.total = t.stars + t.bonus;
+    const avg = t.finals ? (t.finalStars + 10*t.w)/t.finals : null; // stars incl. bonus per finished war
+    t.avg = t.finals ? t.finalStars/t.finals : null;
+    const remaining = Math.max(0, totalRounds - t.played);
+    t.proj = t.total + t.liveProj + t.liveBonusExp + (avg!=null ? avg*remaining : 0);
+    t.remaining = remaining;
+    return t;
+  });
+  rows.sort((x,y)=> y.total-x.total || y.dest-x.dest);
+  rows.forEach((t,i)=>t.pos=i+1);
+  const projOrder=[...rows].sort((x,y)=>y.proj-x.proj||y.dest-x.dest);
+  projOrder.forEach((t,i)=>t.projPos=i+1);
+  return {rows, liveWars, roster};
+}
+function pace(stars,atk,roster){ if(!atk) return stars; const p = stars/atk*roster; return Math.min(p, roster*3); }
+
+/* ---------- render ---------- */
+function render(){
+  if(!state){return;}
+  const s=state, {rows, liveWars, roster}=compute(s);
+  const up=s.promote??2, down=s.demote??2, n=rows.length;
+  const me=rows.find(r=>r.clan===ME);
+  const third=rows[up]; const second=rows[up-1];
+  // strip
+  const cushion = me.pos<=up ? me.total - third.total : me.total - second.total;
+  const finalsDone = Math.max(0,...(s.rounds||[]).map(r=>(r.wars||[]).every(w=>w.status==="final")&&r.wars.length?r.n:0));
+  $("strip").hidden=false;
+  $("strip").innerHTML = `
+    <div class="kpi ${me.pos<=up?'good':me.pos>n-down?'bad':''}"><span class="label">Position</span><b class="num">${me.pos} / ${n}</b></div>
+    <div class="kpi ${cushion>=0?'good':'bad'}"><span class="label">${me.pos<=up?'Promo cushion':'To promo spot'}</span><b class="num">${cushion>=0?'+':''}${cushion}</b></div>
+    <div class="kpi"><span class="label">Rounds done</span><b class="num">${finalsDone} / ${s.totalRounds||7}</b></div>`;
+
+  renderTodo();
+  if(s.league) $("eb-league").textContent=s.league;
+  const off=$("offseason"); off.hidden=!s.offSeason;
+  if(s.offSeason){ const m=(s.season||"").slice(0,7); const label=m?new Date(m+"-15T12:00:00Z").toLocaleDateString("en-US",{month:"long",year:"numeric",timeZone:"UTC"}):"last season";
+    off.innerHTML=`<b>Between CWL seasons.</b> Showing final results from ${esc(label)}. This page switches to the new season on its own when CWL signup opens, usually around the 1st.`; }
+
+  // live
+  const mine = liveWars.find(x=>x.w.a===ME||x.w.b===ME);
+  $("live-sec").hidden=!mine;
+  if(mine){
+    const {r,w}=mine; const meA=w.a===ME;
+    const ms=meA?w.aStars:w.bStars, os=meA?w.bStars:w.aStars, ma=meA?w.aAtk:w.bAtk, oa=meA?w.bAtk:w.aAtk, opp=meA?w.b:w.a;
+    const mp=pace(ms,ma,roster), op=pace(os,oa,roster);
+    const mLeft=roster-ma, oLeft=roster-oa;
+    const oppMax=os+oLeft*3, need=Math.max(0, Math.min(oppMax, op) - ms + 1);
+    const needPer = mLeft? need/mLeft : Infinity;
+    const share = (ms+os)? ms/(ms+os)*100 : 50;
+    const ahead = mp>op, even = Math.abs(mp-op)<2;
+    $("live-round").textContent=`Round ${r.n} · ${roster}v${roster}`;
+    $("live").innerHTML = `
+      <div class="vs">
+        <div><div class="label">${nm(ME)}</div><div class="big num">${ms}</div><div class="note">${ma}/${roster} attacks</div></div>
+        <div class="label" style="padding-bottom:6px">vs</div>
+        <div style="text-align:right"><div class="label">${nm(opp)}</div><div class="big num">${os}</div><div class="note">${oa}/${roster} attacks</div></div>
+      </div>
+      <div class="bar" aria-hidden="true"><span style="width:${share.toFixed(1)}%"></span></div>
+      <div class="facts num">
+        <div><span>Your stars/attack</span><b>${ma?(ms/ma).toFixed(2):'–'}</b></div>
+        <div><span>Their stars/attack</span><b>${oa?(os/oa).toFixed(2):'–'}</b></div>
+        <div><span>Your pace finish</span><b>${mp.toFixed(0)}</b></div>
+        <div><span>Their pace finish</span><b>${op.toFixed(0)}</b></div>
+        <div><span>Attacks left (you)</span><b>${mLeft}</b></div>
+        <div><span>Attacks left (them)</span><b>${oLeft}</b></div>
+        <div><span>Stars needed to beat their pace</span><b>${need}</b></div>
+        <div><span>Needed per remaining attack</span><b>${isFinite(needPer)?needPer.toFixed(2):'–'}</b></div>
+      </div>
+      <div class="verdict ${even?'':ahead?'good':'bad'}">${even?'Too close to call on pace.':ahead?'On pace to win if every attack gets used.':'Behind pace. Need above your current average on remaining attacks.'}</div>
+      <div class="note">Pace assumes each side keeps its current stars-per-attack and uses all ${roster} attacks. Their max possible is ${oppMax}.</div>`;
+  }
+
+  // standings
+  $("stand-sec").hidden=false;
+  $("stand").innerHTML = rows.map((t,i)=>{
+    const cls=[t.clan===ME?'me':'', i<up?'z-up':'', i>=n-down?'z-down':'', (i===up-1||i===n-down-1)?'cut':''].join(' ');
+    return `<tr class="${cls}"><td class="pos num">${t.pos}</td><td class="clan">${nm(t.clan)}</td>
+      <td class="num"><b>${t.total}</b></td><td class="num">${t.w}–${t.l}</td><td class="num">${t.dest||'–'}</td>
+      <td class="num">${t.avg!=null?t.avg.toFixed(1):'–'}</td><td class="num">${Math.round(t.proj)} <span class="note">(${t.projPos})</span></td></tr>`;
+  }).join("");
+  const finishedMin = Math.min(...rows.map(r=>r.finals));
+  $("stand-note").textContent = finishedMin<3
+    ? `Projection is based on ${finishedMin} finished war${finishedMin===1?'':'s'} per clan, so treat it as rough until around Round 4. Dashed lines mark the promotion and demotion cuts. Ties go to destruction.`
+    : `Dashed lines mark the promotion and demotion cuts. Ties go to destruction.`;
+
+  // remaining opponents
+  const faced={}; s.clans.forEach(c=>faced[c]=new Set());
+  (s.rounds||[]).forEach(r=>(r.wars||[]).forEach(w=>{faced[w.a]?.add(w.b);faced[w.b]?.add(w.a);}));
+  $("opp-sec").hidden=false;
+  $("opp").innerHTML=rows.map(t=>`<tr class="${t.clan===ME?'me':''}"><td class="clan" style="text-align:left">${nm(t.clan)}</td><td style="text-align:left;white-space:normal">${s.clans.filter(c=>c!==t.clan&&!faced[t.clan].has(c)).map(nm).join(", ")||'All scheduled'}</td></tr>`).join("");
+
+  // rounds
+  $("rounds-sec").hidden=false;
+  $("rounds-note").textContent = canWrite ? "Tap ✎ to update a war" : "";
+  updLine();
+  $("rounds").innerHTML = (s.rounds||[]).map((r,ri)=>`
+    <div class="round">
+      <div class="round-h"><h3>Round ${r.n}</h3>${canWrite?`<button data-add="${ri}">+ Add war</button>`:''}</div>
+      ${(r.wars||[]).map((w,wi)=>warRow(w,ri,wi)).join("") || '<div class="war note" style="grid-template-columns:1fr">Matchups not posted yet.</div>'}
+      ${editing && editing.ri===ri ? editor(r,ri) : ''}
+    </div>`).join("") + (canWrite && (s.rounds||[]).length<(s.totalRounds||7) ? `<div class="row"><button id="add-round">+ Add round</button></div>` : "");
+
+  // destruction
+  $("dest-sec").hidden=!canWrite;
+  if(!$("dest").dataset.built || $("dest").dataset.built!==JSON.stringify(s.dest)){
+    $("dest").innerHTML = s.clans.map((c,i)=>`<label class="field"><span class="label">${nm(c)}</span><input id="dest-${i}" type="number" inputmode="numeric" value="${(s.dest||{})[c]??''}"></label>`).join("");
+    $("dest").dataset.built=JSON.stringify(s.dest);
+  }
+}
+function warRow(w,ri,wi){
+  const win=warWinner(w), mine=w.a===ME||w.b===ME;
+  const ca=win===w.a?'w':win?'l':'', cb=win===w.b?'w':win?'l':'';
+  const atk = x => w.status==="upcoming" ? "" : `${x} attacks`;
+  return `<div class="war ${mine?'mine':''}">
+    <div class="side"><span class="n">${nm(w.a)}</span><span class="a">${atk(w.aAtk)}</span></div>
+    <div class="score num"><span class="${ca}">${w.status==="upcoming"?'–':w.aStars}</span><span class="pill ${w.status}">${w.status}</span><span class="${cb}">${w.status==="upcoming"?'–':w.bStars}</span></div>
+    <div class="side r"><span class="n">${nm(w.b)}</span><span class="a">${atk(w.bAtk)}</span></div>
+    ${canWrite?`<button class="edit" aria-label="Edit war" data-edit="${ri},${wi}">✎</button>`:'<span></span>'}
+  </div>`;
+}
+function editor(r,ri){
+  const isNew = editing.wi===-1;
+  const w = isNew ? {a:state.clans[0],b:state.clans[1],aStars:0,bStars:0,aAtk:0,bAtk:0,status:"upcoming",winner:""} : r.wars[editing.wi];
+  const opts = sel => state.clans.map(c=>`<option ${c===sel?'selected':''}>${esc(c)}</option>`).join("");
+  return `<form class="editor" id="ed">
+    <div class="grid2">
+      <label class="field"><span class="label">Clan A</span><select id="ed-a">${opts(w.a)}</select></label>
+      <label class="field"><span class="label">Clan B</span><select id="ed-b">${opts(w.b)}</select></label>
+      <label class="field"><span class="label">A stars</span><input id="ed-as" type="number" inputmode="numeric" min="0" value="${w.aStars}"></label>
+      <label class="field"><span class="label">B stars</span><input id="ed-bs" type="number" inputmode="numeric" min="0" value="${w.bStars}"></label>
+      <label class="field"><span class="label">A attacks used</span><input id="ed-aa" type="number" inputmode="numeric" min="0" value="${w.aAtk}"></label>
+      <label class="field"><span class="label">B attacks used</span><input id="ed-ba" type="number" inputmode="numeric" min="0" value="${w.bAtk}"></label>
+      <label class="field"><span class="label">Status</span><select id="ed-st">${["upcoming","live","final"].map(x=>`<option ${x===w.status?'selected':''}>${x}</option>`).join("")}</select></label>
+      <label class="field"><span class="label">Winner if stars tie</span><select id="ed-win"><option value="">By stars</option>${[w.a,w.b].map(c=>`<option ${c===w.winner?'selected':''}>${esc(c)}</option>`).join("")}</select></label>
+    </div>
+    <div class="row">${isNew?'':'<button type="button" id="ed-del">Delete</button>'}<button type="button" id="ed-cancel">Cancel</button><button class="primary" type="submit">Save</button></div>
+  </form>`;
+}
+
+/* ---------- still to attack ---------- */
+const QUIPS=["The vault won't crack itself.","Clock's ticking, thieves.","Every star counts. Yours too.","Promotion is a team heist."];
+function renderTodo(){
+  const sec=$("todo-sec"), el=$("todo"), m=state&&state.myWar;
+  const live = m && (state.rounds||[]).some(r=>r.n===m.round && (r.wars||[]).some(w=>(w.a===ME||w.b===ME)&&w.status==="live"));
+  if(!live){ sec.hidden=true; return; }
+  sec.hidden=false;
+  const left=m.pending.length, done=m.done, roster=m.roster||30;
+  let ends="";
+  if(m.endTime){ const ms=new Date(m.endTime)-Date.now();
+    if(ms>0){ const h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); ends=`War ends in ${h}h ${String(mi).padStart(2,"0")}m`; }
+    else ends="War time is up"; }
+  const pips=Array.from({length:roster},(_,i)=>`<i class="${i<done?'on':''}"></i>`).join("");
+  if(!left){
+    el.className="todo clear";
+    el.innerHTML=`<div class="todo-h"><h2>Everyone's in 🫡</h2><span class="note">${done}/${roster} attacks used vs ${nm(m.opponent)}</span></div><div class="pips" style="--n:${roster}" aria-hidden="true">${pips}</div>`;
+    return;
+  }
+  el.className="todo";
+  const quip=QUIPS[(m.round+left)%QUIPS.length];
+  el.innerHTML=`<div class="todo-h"><h2>Still to attack</h2><span class="left">${left} left · Round ${m.round} vs ${nm(m.opponent)}</span></div>
+    <div class="pips" style="--n:${roster}" role="img" aria-label="${done} of ${roster} attacks used">${pips}</div>
+    <div class="chips">${m.pending.map(p=>`<span class="chip"><span>${nm(p.n)}</span><small>TH${esc(p.th)}</small></span>`).join("")}</div>
+    <div class="todo-f"><span>${esc(quip)}</span><span>${esc(ends)}</span></div>`;
+}
+setInterval(()=>{ if(state) renderTodo(); }, 30000);
+
+/* ---------- update times ---------- */
+const UPDATE_MINUTE = 5; // hourly update on the host PC
+const fmtCT = d => d.toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})+" CT";
+function updLine(){
+  const el=$("upd"); if(!el||!state) return;
+  const now=new Date();
+  const last = state.updatedISO ? fmtCT(new Date(state.updatedISO)) : (state.updated||"unknown");
+  if(state.groupState==="ended"){ el.innerHTML=`<span>Last updated <b>${esc(last)}</b></span><span>Season over, no more updates</span>`; return; }
+  const next=new Date(now); next.setSeconds(0,0); next.setMinutes(UPDATE_MINUTE);
+  if(next<=now) next.setHours(next.getHours()+1);
+  let warn="";
+  if(state.updatedISO){ const age=(now-new Date(state.updatedISO))/60000; if(age>70) warn=`<span class="warn">Last update was ${Math.round(age/60)>=1?Math.round(age/60)+" hr":Math.round(age)+" min"} ago, so recent updates may have been missed</span>`; }
+  el.innerHTML=`<span>Last updated <b>${esc(last)}</b></span><span>Next update <b>${esc(fmtCT(next))}</b></span>${warn}`;
+}
+setInterval(updLine, 30000);
+
+/* ---------- writes ---------- */
+async function save(next){
+  if(!docRef){ setStatus("Can't save: the tracker store isn't available in this view."); return; }
+  if(saving) return; saving=true;
+  next.updated=fmtCT(new Date()); next.updatedISO=new Date().toISOString();
+  state=next; render();
+  try{ await docRef.set(next); setStatus(""); }
+  catch(e){ setStatus("Save failed: "+(e?.message||e?.code||"unknown error")+". Your change shows here but may not be stored."); }
+  finally{ saving=false; }
+}
+document.addEventListener("click", e=>{
+  const t=e.target.closest("button"); if(!t||!state) return;
+  if(t.dataset.edit){ const [ri,wi]=t.dataset.edit.split(",").map(Number); editing={ri,wi}; render(); return; }
+  if(t.dataset.add!==undefined){ editing={ri:Number(t.dataset.add),wi:-1}; render(); return; }
+  if(t.id==="ed-cancel"){ editing=null; render(); return; }
+  if(t.id==="ed-del"){ const next=structuredClone(state); next.rounds[editing.ri].wars.splice(editing.wi,1); editing=null; save(next); return; }
+  if(t.id==="add-round"){ const next=structuredClone(state); const n=(next.rounds.at(-1)?.n||0)+1; if(n>(next.totalRounds||7)) return; next.rounds.push({n,wars:[]}); save(next); return; }
+  if(t.id==="dest-save"){ const next=structuredClone(state); next.dest={}; state.clans.forEach((c,i)=>{const v=$("dest-"+i).value; if(v!=="") next.dest[c]=Number(v);}); save(next); return; }
+});
+document.addEventListener("submit", e=>{
+  if(e.target.id!=="ed") return; e.preventDefault();
+  const num=id=>Math.max(0,Number($(id).value)||0);
+  const w={a:$("ed-a").value,b:$("ed-b").value,aStars:num("ed-as"),bStars:num("ed-bs"),aAtk:num("ed-aa"),bAtk:num("ed-ba"),status:$("ed-st").value,winner:$("ed-win").value};
+  if(w.a===w.b){ setStatus("Pick two different clans."); return; }
+  const next=structuredClone(state); const wars=next.rounds[editing.ri].wars;
+  if(editing.wi===-1) wars.push(w); else wars[editing.wi]=w;
+  editing=null; save(next);
+});
+
+/* ---------- boot ---------- */
+render(); setStatus("");
+(async()=>{
+  try{ db = await claude.use("db"); }catch(_){ db=null; }
+  if(!db) return; // anonymous or unsupported view: snapshot stays
+  try{ const user = await claude.use("user"); canWrite = !!(user && (await user.isOwner())); }catch(_){ canWrite=false; }
+  docRef = db.doc("season/current");
+  const timer=setTimeout(()=>setStatus("Showing the last saved snapshot. Live data can't be reached right now."),10000);
+  docRef.onSnapshot(snap=>{
+    if(!snap.metadata?.fromCache){ clearTimeout(timer); setStatus(""); }
+    if(saving) return;
+    if(snap.exists){ state=structuredClone(snap.data()); if(!state.rounds) state.rounds=[]; if(state.me) ME=state.me; }
+    render();
+  }, err=>{ clearTimeout(timer); render(); });
+})();
+</script>
+
+
+</body></html>
