@@ -296,7 +296,12 @@ const US = () => (state.clan&&state.clan.name)||"Den of Thieves";
 function players(){
   const c=state.pCols||[];
   return (state.players||[]).map((r,idx)=>{ const o={i:idx}; c.forEach((k,i)=>o[k]=r[i]);
-    o.hit=pct(o.used,o.avail); o.missed=o.avail-o.used; o.avgS=o.att?o.stars/o.att:null; return o; });
+    o.hit=pct(o.used,o.avail); o.missed=o.avail-o.used; o.avgS=o.att?o.stars/o.att:null;
+    o.given=o.defWars?o.defStars/o.defWars:null;
+    o.slots=(o.avail||0)+Math.max(0,(o.att||0)-(o.used||0)); o.off=o.slots?(o.stars-Math.max(0,o.missed||0))/o.slots:null;   // missed attack = -1 star
+    return o; });
+// same order as MVP and 🐐 Thieves: net stars per attack → fewest stars given up → hitting up / tougher bases → attack % → lowest % given up
+const cmpMVP=(a,b)=>((b.off??-1)-(a.off??-1)) || ((a.given??1.5)-(b.given??1.5)) || (((b.up||0)-(b.down||0))-((a.up||0)-(a.down||0))) || ((a.avgT??99)-(b.avgT??99)) || ((b.avgD??0)-(a.avgD??0)) || ((a.givenD??50)-(b.givenD??50));
 }
 function updLine(){
   const now=new Date(), last=state.updatedISO?fmtCT(new Date(state.updatedISO)):(state.updated||"unknown");
@@ -451,15 +456,14 @@ function renderLineup(ps){
     $("lineup-note").textContent=`Unlocks after ${UNLOCK_WARS} tracked wars`;
     el.innerHTML=`<div class="locked"><div class="head"><b class="num">${n} / ${UNLOCK_WARS} wars tracked</b><span class="note">${UNLOCK_WARS-n} to go</span></div>
       <div class="prog"><span style="width:${Math.min(100,n/UNLOCK_WARS*100)}%"></span></div>
-      <div class="note">Once there's enough data, everyone gets ranked on showing up (hit rate) and hitting well (avg stars). The top ${size} make the suggested lineup, the next ${BUBBLE_SIZE} are on the bubble, and everyone else can earn a spot. New members need ${MIN_WARS} tracked wars to be ranked.</div></div>`;
+      <div class="note">Once there's enough data, everyone gets ranked the same way as MVP and 🐐 Thieves: net stars per attack (missed = −1★), then defense, then hitting up, then destruction. The top ${size} make the suggested lineup, the next ${BUBBLE_SIZE} are on the bubble, and everyone else can earn a spot. New members need ${MIN_WARS} tracked wars to be ranked.</div></div>`;
     return;
   }
-  const score=p=>(p.hit??0)*0.5+((p.avgS??0)/3*100)*0.5;
-  const ranked=ps.filter(p=>p.wars>=MIN_WARS).sort((a,b)=>score(b)-score(a)||b.th-a.th);
+  const ranked=ps.filter(p=>p.wars>=MIN_WARS).sort(cmpMVP);
   const notYet=ps.filter(p=>p.wars<MIN_WARS);
-  const chip=(p,k)=>`<span class="chip rank"><small>${k+1}</small><span>${pl(p.n)}</span><small>${score(p).toFixed(0)}</small></span>`;
+  const chip=(p,k)=>`<span class="chip rank"><small>${k+1}</small><span>${pl(p.n)}</span><small>${p.off==null?"–":p.off.toFixed(2)+"★"}</small></span>`;
   const inn=ranked.slice(0,size), bub=ranked.slice(size,size+BUBBLE_SIZE), rest=ranked.slice(size+BUBBLE_SIZE);
-  $("lineup-note").textContent=`${size}v${size} · score = half hit rate, half avg stars · ${n} wars`;
+  $("lineup-note").textContent=`${size}v${size} · ranked like MVP · ${n} wars`;
   el.innerHTML=`<div class="tier"><h3>In (${inn.length})</h3><div class="chips">${inn.map(chip).join("")}</div></div>
     ${bub.length?`<div class="tier bubble"><h3>On the bubble (${bub.length})</h3><div class="chips">${bub.map((p,k)=>chip(p,k+size)).join("")}</div></div>`:""}
     ${rest.length||notYet.length?`<div class="tier"><h3>Earn your spot</h3><div class="chips">${rest.map((p,k)=>chip(p,k+size+BUBBLE_SIZE)).join("")}${notYet.map(p=>`<span class="chip dim"><span>${pl(p.n)}</span><small>needs ${MIN_WARS-p.wars} more</small></span>`).join("")}</div></div>`:""}`;
