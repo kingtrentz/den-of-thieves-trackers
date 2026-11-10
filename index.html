@@ -505,16 +505,16 @@ details.bd-more[open]{display:grid;gap:8px}
   </section>
 
   <section id="top-sec" hidden>
-    <div class="head"><h2>Top 3</h2><span class="note">live</span></div>
-    <div class="podium" id="top"></div>
-    <div class="note">Ranked by stars gained (each attack missed by war's end = −1★), then fewest stars given up. Ties go to attack %, then % given up, then tougher targets.</div>
+    <div class="head"><h2>MVP leaderboard</h2><span class="note">this war, live</span></div>
+    <div class="mvp-list mvp-sm" id="top"></div>
+    <details class="more-stats" id="top-rest" hidden></details>
+    <div class="note">Ranked by stars, then stars given up, then attack %, then % given up, then tougher bases.</div>
   </section>
 
 
   <section id="atk-sec" hidden>
     <div class="head"><h2>War log</h2><span class="note" id="atk-note"></span></div>
     <div class="seg" role="group" aria-label="War log view"><button type="button" class="seg-b" data-seg="atk" aria-pressed="true">Attacks</button><button type="button" class="seg-b" data-seg="def" aria-pressed="false">Defenses</button></div>
-    <div id="all" hidden></div>
     <div id="atk"></div>
     <div id="def" hidden></div>
   </section>
@@ -524,7 +524,7 @@ details.bd-more[open]{display:grid;gap:8px}
     <div id="scout" style="display:grid;gap:10px"></div>
   </section>
 
-  <section id="lineup-sec" data-collapsed="1">
+  <section id="lineup-sec">
     <div class="head"><h2>Suggested lineup</h2><span class="note" id="lineup-note"></span></div>
     <div id="lineup"></div>
   </section>
@@ -534,7 +534,7 @@ details.bd-more[open]{display:grid;gap:8px}
 
 <script>
 if(location.hash.startsWith("#player=")) location.replace("history.html"+location.hash);
-const SNAPSHOT = {"clan":{"name":"Den of Thieves","tag":"#2RCY90GY0","level":19,"members":47,"w":137,"l":29,"t":29,"streak":1,"league":"Master League I"},"log":[["2026-11-01","tie",30,90,90,100.0,100.0,"smarmtm",2],["2026-10-29","win",25,75,74,100.0,99.7,"KINGS OF IRAN",2],["2026-10-27","tie",25,75,75,100.0,100.0,"سرزمین هزاره",2],["2026-10-25","lose",25,69,75,97.4,100.0,"حب بلا نهايه",2],["2026-10-23","tie",25,75,75,100.0,100.0,"War Hungry v2",2],["2026-10-20","tie",25,75,75,100.0,100.0,"CoCadiles",2],["2026-10-17","win",25,75,57,100.0,81.0,"افسانه ی کلش",2],["2026-10-15","win",25,75,74,100.0,99.6,"TAMIL",2],["2026-10-13","win",30,90,75,100.0,90.4,"Mr.rishuuu_",2],["2026-10-01","tie",30,90,90,100.0,100.0,"♠King's of war",2],["2026-09-28","tie",25,75,75,100.0,100.0,"KACHUA BD BY",2],["2026-09-25","lose",30,89,90,100.0,100.0,"TÜRKGÜCÜ",2],["2026-09-23","tie",25,75,75,100.0,100.0,"NOT:Biz #Türküz",2],["2026-09-21","tie",30,90,90,100.0,100.0,"UnidosSomosFort",2],["2026-09-19","win",30,90,85,100.0,96.3,"Black Clover",2],["2026-09-16","win",25,75,72,100.0,99.3,"BestMen2.0",2],["2026-09-13","win",25,75,62,100.0,90.6,"Calvin'sKingdom",2],["2026-09-01","tie",30,90,90,100.0,100.0,"BORN TO WIN",2],["2026-08-29","tie",30,90,90,100.0,100.0,"Trickster",2],["2026-08-27","tie",25,75,75,100.0,100.0,"عشاق أرض الشام",2],["2026-08-25","tie",20,60,60,100.0,100.0,"Reborn Unity",2],["2026-08-23","tie",25,75,75,100.0,100.0,"HGHMNDS©",2],["2026-08-20","tie",25,75,75,100.0,100.0,"رفقا",2],["2026-08-17","win",25,75,73,100.0,98.4,"Army of Poland",2],["2026-08-15","win",25,75,70,100.0,96.9,"خاطره ها",2],["2026-08-13","win",25,75,68,100.0,93.7,"PH DARKSHIP X3M",2],["2026-08-02","tie",30,90,90,100.0,100.0,"PRIOK ARMY",2],["2026-07-31","lose",25,73,75,99.2,100.0,"YouClashBro?",2],["2026-07-29","win",25,75,74,100.0,100.0,"\"\"SCORPION\"\"",2],["2026-07-27","win",20,60,59,100.0,99.5,"unibond AA team",2],["2026-07-24","win",25,75,74,100.0,98.6,"War Dragon",2],["2026-07-22","win",20,60,58,100.0,99.6,"دوستان بامرام",2],["2026-07-20","tie",25,75,75,100.0,100.0,"WeenDawgsInc",2],["2026-07-17","win",25,75,71,100.0,98.1,"Persian Gulf",2],["2026-07-15","win",20,60,56,100.0,96.2,"New Fitzland",2],["2026-07-11","tie",25,75,75,100.0,100.0,"LETHAL LEGENDS",2],["2026-06-30","lose",25,71,75,98.2,100.0,"J1NX",2],["2026-06-18","win",30,90,86,100.0,98.5,"CoCadiles",2],["2026-06-14","win",25,74,72,99.8,98.2,"☆可能性は無限大☆",2],["2026-06-11","win",35,105,99,100.0,96.4,"REBORN SQUAD",2],["2026-05-30","win",20,58,33,99.0,68.0,"*Clashers*Home*",2],["2026-05-28","win",20,60,55,100.0,99.0,"Ottoman Empire",2],["2026-05-26","win",20,57,53,97.7,92.1,"الفيلق",2],["2026-05-24","win",25,72,55,99.2,80.4,"bé chanh vy s18",2],["2026-05-21","win",25,75,56,100.0,81.3,"Hall of Fame",2],["2026-05-16","win",25,75,54,100.0,82.8,"LordoftheSlums",2],["2026-05-14","win",25,72,67,98.2,93.4,"النسور",2],["2026-05-12","win",30,90,77,100.0,92.4,"royal",2],["2026-05-01","win",30,90,85,100.0,99.2,"BlazingGANG",2],["2026-04-28","win",15,45,43,100.0,98.2,"science",2]],"logCols":["date","res","size","s","os","d","od","opp","apm"],"players":[["亗 Khnum-Atum~ra",18,"admin",7,7,7,7,21,7,100.0,0,7,0,7,16,7.0,93.4],["KingTrents⚡️",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,19,8.0,91.3],["Archie",18,"coLeader",7,7,7,7,20,6,98.4,0,7,0,7,13,2.0,80.4],["mr razzi",18,"coLeader",7,7,7,7,20,6,99.6,0,7,0,7,19,4.3,96.9],["Keith1972",18,"admin",7,7,7,7,18,4,95.4,0,7,0,7,18,3.0,98.1],["Iron Buff",18,"leader",7,7,7,7,18,5,94.7,0,7,0,7,11,4.7,84.3],["PsuedoVirus",18,"coLeader",7,7,7,7,19,5,96.4,0,6,1,7,20,13.7,99.6],["BIKE-Ñ=UFC+24",18,"admin",7,7,7,7,18,4,90.9,0,7,0,7,19,15.6,93.4],["King_Savage_999",18,"coLeader",7,7,7,7,19,5,99.0,0,7,0,7,11,1.0,70.7],["Alf",17,"coLeader",7,7,7,7,19,5,98.6,0,7,0,6,16,21.4,99.3],["BigDog",18,"admin",7,7,7,7,21,7,100.0,0,7,0,7,15,12.0,92.6],["jaggerman2002",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["AlreadyGotTwo",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,6,13,23.4,93.2],["Mr. Mayhem",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["good luck",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["DestroX",18,"admin",7,6,7,6,17,5,99.8,1,5,0,7,18,17.8,98.1],["FRE@K$TONE",17,"admin",7,7,7,7,17,4,96.4,0,7,0,7,19,25.4,97.3],["Hateful",18,"coLeader",7,7,7,7,18,4,96.7,0,6,1,6,17,12.6,95.7],["丂卄么几ズ卂尺",18,"admin",7,7,7,7,18,5,91.0,0,7,0,7,15,18.9,84.4],["niczll",18,"admin",7,7,7,7,18,5,94.1,0,7,0,7,18,30.0,90.0],["Hammad Khan",18,"admin",7,7,7,7,17,4,95.7,0,7,0,6,17,17.4,95.7],["Fatal Justice",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,18,9.0,90.1],["Nikesh",17,"member",7,6,7,6,13,3,86.5,0,6,0,5,14,22.5,99.8],["BT",18,"admin",7,7,7,7,15,2,87.7,0,7,0,6,16,14.0,99.0],["Lethal Formula",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,18,10.0,94.6],["adi",18,"admin",7,7,7,7,17,4,95.9,0,7,0,7,20,15.7,93.9],["Steel_Fury",16,"coLeader",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["BConn",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Why Not!",17,"member",7,7,7,7,20,6,97.4,0,7,0,6,15,20.4,95.8],["VENGEANCE",17,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["GodHelpsYou",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Rajat75",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["defence",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Tribe of Judah",17,"coLeader",7,7,7,7,15,2,91.0,0,7,0,6,15,26.4,97.2],["musher13",18,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Archie02",18,"member",4,4,4,4,9,1,88.8,0,4,0,4,12,29.0,100.0],["BT 2",17,"admin",7,7,7,7,19,5,94.1,0,7,0,7,20,24.4,98.4],["Amaripotpot",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["greenland",16,"admin",7,7,7,7,16,3,86.0,0,7,0,7,21,28.3,100.0],["Violent Desire",17,"admin",7,7,7,7,21,7,100.0,0,7,0,7,20,27.6,96.9],["Ei",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["scacer",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["sultan abdullah",16,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Soliv@g@nt",15,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["huskernsooner",18,"admin",7,7,7,7,17,3,82.0,0,7,0,6,15,6.0,87.8],["mohanad",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Aman",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null]],"pCols":["n","th","role","wars","used","avail","att","stars","tri","avgD","up","same","down","defWars","defStars","avgT","givenD"],"historySince":"2026-11-03T16:48:26+00:00","warsTracked":7,"current":{"id":"R-20261109T231008.000Z","kind":"regular","round":null,"state":"preparation","opp":"大唐游侠","size":10,"apm":2,"us":{"s":0,"d":0.0,"a":0},"them":{"n":"大唐游侠","tag":"#2J0GQQCPP","s":0,"d":0.0,"a":0},"end":"2026-11-11T22:10:08+00:00","start":"2026-11-10T22:10:08+00:00","pending":[],"feed":[],"openBases":[],"ourBases":[],"oppLeft":[],"usAvgAtk":null,"themAvgAtk":null,"attacksLeft":null,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwl":null,"mvps":[["CWL R7","ملوک الیل","2026-11-09","win","niczll","3★ on #30 · gave up 0★","C-2026-11-01-#8RYJ290GC"],["CWL R6","Valar Murghulis","2026-11-08","lose","Iron Buff","3★ on #5 · gave up 1★","C-2026-11-01-#8RYQJ8JC2"],["CWL R5","FORTUNA","2026-11-07","win","丂卄么几ズ卂尺","3★ on #19 · gave up 1★","C-2026-11-01-#8RYYY9PRV"],["CWL R4","العشرة مدرسة 2","2026-11-06","win","Hammad Khan","3★ on #17 · base untested","C-2026-11-01-#8RY909QYR"],["CWL R3","03’ Banshee","2026-11-05","lose","King_Savage_999","3★ on #1 · gave up 1★","C-2026-11-01-#8RY0RCR2R"],["CWL R2","HAK YOL İSLAM","2026-11-04","win","Archie","3★ on #2 · gave up 1★","C-2026-11-01-#8RPUPGJRV"],["CWL R1","BRIGHT FUTURE","2026-11-03","win","Archie","3★ on #2 · gave up 1★","C-2026-11-01-#8RPJQGQQY"]],"cwlBoard":{"season":"2026-11","wars":7,"cols":["n","th","wars","att","s","tri","avgD","miss","mvps","given","net"],"rows":[["BigDog",18,7,7,21,7,100.0,0,0,2.1,21],["AlreadyGotTwo",18,7,7,21,7,100.0,0,0,2.2,21],["亗 Khnum-Atum~ra",18,7,7,21,7,100.0,0,0,2.3,21],["Fatal Justice",18,7,7,21,7,100.0,0,0,2.6,21],["Lethal Formula",18,7,7,21,7,100.0,0,0,2.6,21],["KingTrents⚡️",18,7,7,21,7,100.0,0,0,2.7,21],["Violent Desire",17,7,7,21,7,100.0,0,0,2.9,21],["Archie",18,7,7,20,6,98.4,0,2,1.9,20],["Why Not!",17,7,7,20,6,97.4,0,0,2.5,20],["mr razzi",18,7,7,20,6,99.6,0,0,2.7,20],["King_Savage_999",18,7,7,19,5,99.0,0,1,1.6,19],["Alf",17,7,7,19,5,98.6,0,0,2.7,19],["PsuedoVirus",18,7,7,19,5,96.4,0,0,2.9,19],["BT 2",17,7,7,19,5,94.1,0,0,2.9,19],["Iron Buff",18,7,7,18,5,94.7,0,1,1.6,18],["丂卄么几ズ卂尺",18,7,7,18,5,91.0,0,1,2.1,18],["Keith1972",18,7,7,18,4,95.4,0,0,2.6,18],["niczll",18,7,7,18,5,94.1,0,1,2.6,18],["BIKE-Ñ=UFC+24",18,7,7,18,4,90.9,0,0,2.7,18],["Hateful",18,7,7,18,4,96.7,0,0,2.8,18],["huskernsooner",18,7,7,17,3,82.0,0,0,2.5,17],["FRE@K$TONE",17,7,7,17,4,96.4,0,0,2.7,17],["Hammad Khan",18,7,7,17,4,95.7,0,1,2.8,17],["adi",18,7,7,17,4,95.9,0,0,2.9,17],["DestroX",18,7,6,17,5,99.8,1,0,2.6,16],["greenland",16,7,7,16,3,86.0,0,0,3.0,16],["Tribe of Judah",17,7,7,15,2,91.0,0,0,2.5,15],["BT",18,7,7,15,2,87.7,0,0,2.7,15],["Nikesh",17,7,6,13,3,86.5,1,0,2.8,12],["Archie02",17,4,4,9,1,88.8,0,0,3.0,9],["shield",18,3,1,1,0,89.0,2,0,3.0,-1]]},"curTop":[],"next":{"kind":"regular","round":null,"opp":"大唐游侠","start":"2026-11-10T22:10:08+00:00","size":10,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1},"usAvg":29.8,"usD":99.7,"usN":10,"oppAvg":null,"oppD":null,"oppN":0,"lineup":[["Archie",18,0],["mr razzi",18,0],["亗 Khnum-Atum~ra",18,0],["KingTrents⚡️",18,0],["BigDog",18,0],["PsuedoVirus",18,0],["adi",18,0],["BIKE-Ñ=UFC+24",18,0],["greenland",16,0],["niczll",18,0]]},"scout":{"opp":"大唐游侠","size":10,"level":20,"w":128,"l":68,"t":48,"streak":0,"league":"Master League I","public":true,"members":36,"oppN":9,"oppWins":4,"oppAvg":28.9,"oppD":98.3,"usN":10,"usWins":4,"usAvg":29.8,"usD":99.7,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwlLast":{"league":"Master League II","season":"2026-11-01","place":2,"of":8,"stars":595,"done":7,"final":true,"result":"promoted"},"needsReview":[],"cwlRates":{},"drill":{"wars":[["CWL R7","ملوک الیل","win","2026-11-09",1],["CWL R6","Valar Murghulis","lose","2026-11-08",1],["CWL R5","FORTUNA","win","2026-11-07",1],["CWL R4","العشرة مدرسة 2","win","2026-11-06",1],["CWL R3","03’ Banshee","lose","2026-11-05",1],["CWL R2","HAK YOL İSLAM","win","2026-11-04",1],["CWL R1","BRIGHT FUTURE","win","2026-11-03",1]],"p":{"8":[[0,1,[[3,100,1]],1],[1,1,[[2,97,1]],1],[2,1,[[2,96,1]],2],[3,1,[[3,100,1]],2],[4,1,[[3,100,1]],1],[5,1,[[3,100,1]],2]],"2":[[0,2,[[3,100,2]],1],[1,2,[[3,100,2]],3],[2,2,[[3,100,2]],3],[3,2,[[2,89,2]],2],[4,2,[[3,100,2]],2],[5,2,[[3,100,2]],1]],"4":[[0,3,[[2,95,3]],3],[1,3,[[3,100,3]],3],[2,3,[[3,100,3]],2],[3,3,[[2,83,3]],3],[4,3,[[2,90,3]],3],[5,3,[[3,100,3]],3]],"3":[[0,4,[[3,100,4]],3],[1,4,[[3,100,4]],3],[2,4,[[3,100,4]],3],[3,4,[[2,97,4]],2],[4,4,[[3,100,4]],3],[5,5,[[3,100,5]],3]],"5":[[0,5,[[3,100,5]],2],[1,5,[[3,100,5]],1],[2,5,[[3,100,5]],1],[3,5,[[2,94,5]],2],[4,5,[[3,100,5]],2],[5,4,[[1,69,4]],1]],"44":[[0,6,[[3,100,6]],null],[1,6,[[2,77,6]],3],[2,6,[[3,100,6]],2],[3,6,[[3,100,6]],3],[4,6,[[2,62,6]],2],[5,6,[[2,50,6]],3]],"0":[[0,7,[[3,100,7]],3],[1,7,[[3,100,7]],1],[2,7,[[3,100,7]],2],[3,7,[[3,100,7]],3],[4,7,[[3,100,7]],2],[5,7,[[3,100,7]],3]],"1":[[0,8,[[3,100,8]],3],[1,8,[[3,100,8]],3],[2,8,[[3,100,8]],3],[3,8,[[3,100,8]],2],[4,8,[[3,100,8]],3],[5,8,[[3,100,8]],2]],"21":[[0,9,[[3,100,9]],3],[1,9,[[3,100,9]],3],[2,9,[[3,100,9]],1],[3,9,[[3,100,9]],3],[4,9,[[3,100,9]],2],[5,9,[[3,100,9]],3]],"24":[[0,10,[[3,100,10]],3],[1,10,[[3,100,10]],2],[2,10,[[3,100,10]],2],[3,10,[[3,100,10]],2],[4,10,[[3,100,10]],3],[5,10,[[3,100,10]],3]],"17":[[0,11,[[3,100,11]],null],[1,11,[[3,100,22]],3],[2,11,[[3,100,11]],3],[3,11,[[2,97,11]],3],[4,11,[[2,97,11]],2],[5,11,[[2,83,11]],3]],"10":[[0,12,[[3,100,12]],1],[1,12,[[3,100,12]],2],[2,12,[[3,100,12]],2],[3,12,[[3,100,12]],3],[4,12,[[3,100,12]],3],[5,12,[[3,100,12]],2]],"6":[[0,13,[[3,100,13]],2],[1,13,[[3,100,13]],3],[2,13,[[3,100,18]],3],[3,13,[[2,86,13]],3],[4,13,[[2,89,13]],3],[5,13,[[3,100,13]],3]],"23":[[0,14,[[2,85,14]],3],[1,14,[[2,79,14]],3],[2,14,[[3,100,14]],2],[3,14,[[2,85,14]],2],[4,14,[[1,83,14]],null],[5,14,[[2,82,14]],3]],"18":[[0,15,[[3,100,15]],2],[1,19,[[3,100,19]],2],[2,19,[[3,100,19]],1],[3,19,[[1,65,19]],2],[4,20,[[2,72,20]],3],[5,20,[[3,100,20]],2]],"25":[[0,16,[[3,100,16]],3],[1,15,[[3,100,15]],3],[2,15,[[3,100,15]],2],[3,16,[[2,90,16]],3],[4,16,[[2,89,16]],3],[5,16,[[3,100,16]],3]],"7":[[0,17,[[3,100,17]],2],[1,16,[[3,100,16]],3],[2,16,[[3,100,16]],2],[3,15,[[3,100,15]],3],[4,15,[[2,68,15]],3],[5,15,[[2,86,15]],3]],"20":[[0,18,[[1,94,18]],3],[1,17,[[3,100,17]],3],[2,17,[[3,100,17]],3],[3,17,[[3,100,17]],null],[4,18,[[2,78,18]],3],[5,18,[[2,98,18]],2]],"15":[[0,19,[[3,100,19]],2],[1,18,[[2,99,18]],3],[2,18,[[3,100,13]],2],[3,18,[],3],[4,19,[[3,100,19]],2],[5,19,[[3,100,19]],3]],"28":[[0,20,[[3,100,20]],3],[1,20,[[3,100,20]],3],[2,20,[[3,100,20]],2],[3,20,[[3,100,20]],null],[4,21,[[2,82,21]],2],[5,21,[[3,100,21]],2]],"9":[[0,21,[[3,100,21]],null],[1,21,[[2,93,21]],3],[2,21,[[3,100,21]],3],[3,21,[[3,100,21]],3],[4,22,[[2,97,22]],3],[5,22,[[3,100,22]],1]],"22":[[0,22,[[2,80,22]],null],[1,22,[],3],[2,22,[[3,100,22]],2],[3,22,[[1,91,22]],null],[4,23,[[1,48,23]],3],[5,23,[[3,100,23]],3]],"12":[[0,23,[[3,100,23]],1],[1,23,[[3,100,23]],1],[2,23,[[3,100,23]],2],[3,23,[[3,100,23]],null],[4,24,[[3,100,24]],3],[5,24,[[3,100,24]],3]],"36":[[0,24,[[3,100,24]],2],[1,24,[[3,100,24]],3],[2,24,[[3,100,24]],3],[3,24,[[2,74,24]],3],[4,25,[[2,85,25]],3],[5,25,[[3,100,25]],3]],"16":[[0,25,[[2,87,25]],3],[1,25,[[1,93,25]],3],[2,25,[[3,100,25]],2],[3,25,[[3,100,25]],3],[4,26,[[3,100,26]],3],[5,26,[[2,95,26]],3]],"33":[[0,26,[[2,99,26]],null],[1,26,[[2,96,26]],3],[2,26,[[3,100,26]],2],[3,26,[[2,90,26]],3],[4,27,[[1,64,27]],3],[5,27,[[2,88,27]],2]],"39":[[0,27,[[3,100,27]],3],[1,27,[[3,100,27]],3],[2,27,[[3,100,27]],3],[3,27,[[3,100,27]],3],[4,28,[[3,100,28]],3],[5,28,[[3,100,28]],2]],"38":[[0,28,[[2,75,28]],3],[1,28,[[3,100,28]],3],[2,28,[[2,97,28]],3],[3,28,[[2,54,28]],3],[4,29,[[1,76,29]],3],[5,29,[[3,100,29]],3]],"35":[[0,29,[[3,100,29]],3],[1,29,[[2,95,29]],3],[2,29,[[2,87,29]],3],[3,29,[[2,73,29]],3]],"19":[[0,30,[[3,100,30]],0],[1,30,[[3,100,30]],3],[2,30,[[3,100,30]],3],[3,30,[[3,100,30]],3],[4,30,[[1,62,30]],3],[5,30,[[2,97,30]],3]]}},"don":{"year":2026,"since":"2026-11-04T04:35:53+00:00","rows":[["亗 Khnum-Atum~ra",311,0],["KingTrents⚡️",3311,146],["Archie",1431,0],["mr razzi",1633,515],["Keith1972",1016,0],["Iron Buff",4570,4571],["PsuedoVirus",1406,3830],["BIKE-Ñ=UFC+24",558,2049],["King_Savage_999",0,0],["Alf",623,0],["BigDog",1625,1050],["jaggerman2002",40,104],["AlreadyGotTwo",2084,454],["Mr. Mayhem",193,132],["good luck",0,89],["DestroX",317,59],["FRE@K$TONE",569,2622],["Hateful",466,0],["丂卄么几ズ卂尺",680,734],["niczll",67,1704],["Hammad Khan",903,445],["Fatal Justice",2955,2625],["Nikesh",0,0],["BT",327,252],["Lethal Formula",1677,3254],["adi",1241,549],["Steel_Fury",0,0],["BConn",0,0],["Why Not!",81,608],["VENGEANCE",179,0],["GodHelpsYou",1861,2274],["Rajat75",0,0],["defence",230,0],["Tribe of Judah",140,0],["musher13",1035,1672],["Archie02",0,0],["BT 2",357,93],["Amaripotpot",0,0],["greenland",180,0],["Violent Desire",891,3107],["Ei",85,55],["scacer",0,0],["sultan abdullah",0,0],["Soliv@g@nt",34,0],["huskernsooner",0,0],["mohanad",0,0],["Aman",0,0]]},"regularTracked":0,"updated":"Nov 10, 2:25 PM CT","updatedISO":"2026-11-10T20:25:02+00:00","cwlOdds":null,"status":{"api":"ok","checked":"2026-11-10T20:25:05+00:00","parts":{"cwl":"ok","war":"ok"}}};
+const SNAPSHOT = {"clan":{"name":"Den of Thieves","tag":"#2RCY90GY0","level":19,"members":47,"w":137,"l":29,"t":29,"streak":1,"league":"Master League I"},"log":[["2026-11-01","tie",30,90,90,100.0,100.0,"smarmtm",2],["2026-10-29","win",25,75,74,100.0,99.7,"KINGS OF IRAN",2],["2026-10-27","tie",25,75,75,100.0,100.0,"سرزمین هزاره",2],["2026-10-25","lose",25,69,75,97.4,100.0,"حب بلا نهايه",2],["2026-10-23","tie",25,75,75,100.0,100.0,"War Hungry v2",2],["2026-10-20","tie",25,75,75,100.0,100.0,"CoCadiles",2],["2026-10-17","win",25,75,57,100.0,81.0,"افسانه ی کلش",2],["2026-10-15","win",25,75,74,100.0,99.6,"TAMIL",2],["2026-10-13","win",30,90,75,100.0,90.4,"Mr.rishuuu_",2],["2026-10-01","tie",30,90,90,100.0,100.0,"♠King's of war",2],["2026-09-28","tie",25,75,75,100.0,100.0,"KACHUA BD BY",2],["2026-09-25","lose",30,89,90,100.0,100.0,"TÜRKGÜCÜ",2],["2026-09-23","tie",25,75,75,100.0,100.0,"NOT:Biz #Türküz",2],["2026-09-21","tie",30,90,90,100.0,100.0,"UnidosSomosFort",2],["2026-09-19","win",30,90,85,100.0,96.3,"Black Clover",2],["2026-09-16","win",25,75,72,100.0,99.3,"BestMen2.0",2],["2026-09-13","win",25,75,62,100.0,90.6,"Calvin'sKingdom",2],["2026-09-01","tie",30,90,90,100.0,100.0,"BORN TO WIN",2],["2026-08-29","tie",30,90,90,100.0,100.0,"Trickster",2],["2026-08-27","tie",25,75,75,100.0,100.0,"عشاق أرض الشام",2],["2026-08-25","tie",20,60,60,100.0,100.0,"Reborn Unity",2],["2026-08-23","tie",25,75,75,100.0,100.0,"HGHMNDS©",2],["2026-08-20","tie",25,75,75,100.0,100.0,"رفقا",2],["2026-08-17","win",25,75,73,100.0,98.4,"Army of Poland",2],["2026-08-15","win",25,75,70,100.0,96.9,"خاطره ها",2],["2026-08-13","win",25,75,68,100.0,93.7,"PH DARKSHIP X3M",2],["2026-08-02","tie",30,90,90,100.0,100.0,"PRIOK ARMY",2],["2026-07-31","lose",25,73,75,99.2,100.0,"YouClashBro?",2],["2026-07-29","win",25,75,74,100.0,100.0,"\"\"SCORPION\"\"",2],["2026-07-27","win",20,60,59,100.0,99.5,"unibond AA team",2],["2026-07-24","win",25,75,74,100.0,98.6,"War Dragon",2],["2026-07-22","win",20,60,58,100.0,99.6,"دوستان بامرام",2],["2026-07-20","tie",25,75,75,100.0,100.0,"WeenDawgsInc",2],["2026-07-17","win",25,75,71,100.0,98.1,"Persian Gulf",2],["2026-07-15","win",20,60,56,100.0,96.2,"New Fitzland",2],["2026-07-11","tie",25,75,75,100.0,100.0,"LETHAL LEGENDS",2],["2026-06-30","lose",25,71,75,98.2,100.0,"J1NX",2],["2026-06-18","win",30,90,86,100.0,98.5,"CoCadiles",2],["2026-06-14","win",25,74,72,99.8,98.2,"☆可能性は無限大☆",2],["2026-06-11","win",35,105,99,100.0,96.4,"REBORN SQUAD",2],["2026-05-30","win",20,58,33,99.0,68.0,"*Clashers*Home*",2],["2026-05-28","win",20,60,55,100.0,99.0,"Ottoman Empire",2],["2026-05-26","win",20,57,53,97.7,92.1,"الفيلق",2],["2026-05-24","win",25,72,55,99.2,80.4,"bé chanh vy s18",2],["2026-05-21","win",25,75,56,100.0,81.3,"Hall of Fame",2],["2026-05-16","win",25,75,54,100.0,82.8,"LordoftheSlums",2],["2026-05-14","win",25,72,67,98.2,93.4,"النسور",2],["2026-05-12","win",30,90,77,100.0,92.4,"royal",2],["2026-05-01","win",30,90,85,100.0,99.2,"BlazingGANG",2],["2026-04-28","win",15,45,43,100.0,98.2,"science",2]],"logCols":["date","res","size","s","os","d","od","opp","apm"],"players":[["亗 Khnum-Atum~ra",18,"admin",7,7,7,7,21,7,100.0,0,7,0,7,16,7.0,93.4],["KingTrents⚡️",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,19,8.0,91.3],["Archie",18,"coLeader",7,7,7,7,20,6,98.4,0,7,0,7,13,2.0,80.4],["mr razzi",18,"coLeader",7,7,7,7,20,6,99.6,0,7,0,7,19,4.3,96.9],["Keith1972",18,"admin",7,7,7,7,18,4,95.4,0,7,0,7,18,3.0,98.1],["Iron Buff",18,"leader",7,7,7,7,18,5,94.7,0,7,0,7,11,4.7,84.3],["PsuedoVirus",18,"coLeader",7,7,7,7,19,5,96.4,0,6,1,7,20,13.7,99.6],["BIKE-Ñ=UFC+24",18,"admin",7,7,7,7,18,4,90.9,0,7,0,7,19,15.6,93.4],["King_Savage_999",18,"coLeader",7,7,7,7,19,5,99.0,0,7,0,7,11,1.0,70.7],["Alf",17,"coLeader",7,7,7,7,19,5,98.6,0,7,0,6,16,21.4,99.3],["BigDog",18,"admin",7,7,7,7,21,7,100.0,0,7,0,7,15,12.0,92.6],["jaggerman2002",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["AlreadyGotTwo",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,6,13,23.4,93.2],["Mr. Mayhem",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["good luck",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["DestroX",18,"admin",7,6,7,6,17,5,99.8,1,5,0,7,18,17.8,98.1],["FRE@K$TONE",17,"admin",7,7,7,7,17,4,96.4,0,7,0,7,19,25.4,97.3],["Hateful",18,"coLeader",7,7,7,7,18,4,96.7,0,6,1,6,17,12.6,95.7],["丂卄么几ズ卂尺",18,"admin",7,7,7,7,18,5,91.0,0,7,0,7,15,18.9,84.4],["niczll",18,"admin",7,7,7,7,18,5,94.1,0,7,0,7,18,30.0,90.0],["Hammad Khan",18,"admin",7,7,7,7,17,4,95.7,0,7,0,6,17,17.4,95.7],["Fatal Justice",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,18,9.0,90.1],["Nikesh",17,"member",7,6,7,6,13,3,86.5,0,6,0,5,14,22.5,99.8],["BT",18,"admin",7,7,7,7,15,2,87.7,0,7,0,6,16,14.0,99.0],["Lethal Formula",18,"coLeader",7,7,7,7,21,7,100.0,0,7,0,7,18,10.0,94.6],["adi",18,"admin",7,7,7,7,17,4,95.9,0,7,0,7,20,15.7,93.9],["Steel_Fury",16,"coLeader",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["BConn",18,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Why Not!",17,"member",7,7,7,7,20,6,97.4,0,7,0,6,15,20.4,95.8],["VENGEANCE",17,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["GodHelpsYou",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Rajat75",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["defence",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Tribe of Judah",17,"coLeader",7,7,7,7,15,2,91.0,0,7,0,6,15,26.4,97.2],["musher13",18,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Archie02",18,"member",4,4,4,4,9,1,88.8,0,4,0,4,12,29.0,100.0],["BT 2",17,"admin",7,7,7,7,19,5,94.1,0,7,0,7,20,24.4,98.4],["Amaripotpot",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["greenland",16,"admin",7,7,7,7,16,3,86.0,0,7,0,7,21,28.3,100.0],["Violent Desire",17,"admin",7,7,7,7,21,7,100.0,0,7,0,7,20,27.6,96.9],["Ei",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["scacer",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["sultan abdullah",16,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Soliv@g@nt",15,"admin",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["huskernsooner",18,"admin",7,7,7,7,17,3,82.0,0,7,0,6,15,6.0,87.8],["mohanad",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null],["Aman",17,"member",0,0,0,0,0,0,null,0,0,0,0,0,null,null]],"pCols":["n","th","role","wars","used","avail","att","stars","tri","avgD","up","same","down","defWars","defStars","avgT","givenD"],"historySince":"2026-11-03T16:48:26+00:00","warsTracked":7,"current":{"id":"R-20261109T231008.000Z","kind":"regular","round":null,"state":"preparation","opp":"大唐游侠","size":10,"apm":2,"us":{"s":0,"d":0.0,"a":0},"them":{"n":"大唐游侠","tag":"#2J0GQQCPP","s":0,"d":0.0,"a":0},"end":"2026-11-11T22:10:08+00:00","start":"2026-11-10T22:10:08+00:00","pending":[],"feed":[],"openBases":[],"ourBases":[],"oppLeft":[],"usAvgAtk":null,"themAvgAtk":null,"attacksLeft":null,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwl":null,"mvps":[["CWL R7","ملوک الیل","2026-11-09","win","niczll","3★ on #30 · gave up 0★","C-2026-11-01-#8RYJ290GC"],["CWL R6","Valar Murghulis","2026-11-08","lose","Iron Buff","3★ on #5 · gave up 1★","C-2026-11-01-#8RYQJ8JC2"],["CWL R5","FORTUNA","2026-11-07","win","丂卄么几ズ卂尺","3★ on #19 · gave up 1★","C-2026-11-01-#8RYYY9PRV"],["CWL R4","العشرة مدرسة 2","2026-11-06","win","Hammad Khan","3★ on #17 · base untested","C-2026-11-01-#8RY909QYR"],["CWL R3","03’ Banshee","2026-11-05","lose","King_Savage_999","3★ on #1 · gave up 1★","C-2026-11-01-#8RY0RCR2R"],["CWL R2","HAK YOL İSLAM","2026-11-04","win","Archie","3★ on #2 · gave up 1★","C-2026-11-01-#8RPUPGJRV"],["CWL R1","BRIGHT FUTURE","2026-11-03","win","Archie","3★ on #2 · gave up 1★","C-2026-11-01-#8RPJQGQQY"]],"cwlBoard":{"season":"2026-11","wars":7,"cols":["n","th","wars","att","s","tri","avgD","miss","mvps","given","net"],"rows":[["BigDog",18,7,7,21,7,100.0,0,0,2.1,21],["AlreadyGotTwo",18,7,7,21,7,100.0,0,0,2.2,21],["亗 Khnum-Atum~ra",18,7,7,21,7,100.0,0,0,2.3,21],["Fatal Justice",18,7,7,21,7,100.0,0,0,2.6,21],["Lethal Formula",18,7,7,21,7,100.0,0,0,2.6,21],["KingTrents⚡️",18,7,7,21,7,100.0,0,0,2.7,21],["Violent Desire",17,7,7,21,7,100.0,0,0,2.9,21],["Archie",18,7,7,20,6,98.4,0,2,1.9,20],["Why Not!",17,7,7,20,6,97.4,0,0,2.5,20],["mr razzi",18,7,7,20,6,99.6,0,0,2.7,20],["King_Savage_999",18,7,7,19,5,99.0,0,1,1.6,19],["Alf",17,7,7,19,5,98.6,0,0,2.7,19],["PsuedoVirus",18,7,7,19,5,96.4,0,0,2.9,19],["BT 2",17,7,7,19,5,94.1,0,0,2.9,19],["Iron Buff",18,7,7,18,5,94.7,0,1,1.6,18],["丂卄么几ズ卂尺",18,7,7,18,5,91.0,0,1,2.1,18],["Keith1972",18,7,7,18,4,95.4,0,0,2.6,18],["niczll",18,7,7,18,5,94.1,0,1,2.6,18],["BIKE-Ñ=UFC+24",18,7,7,18,4,90.9,0,0,2.7,18],["Hateful",18,7,7,18,4,96.7,0,0,2.8,18],["huskernsooner",18,7,7,17,3,82.0,0,0,2.5,17],["FRE@K$TONE",17,7,7,17,4,96.4,0,0,2.7,17],["Hammad Khan",18,7,7,17,4,95.7,0,1,2.8,17],["adi",18,7,7,17,4,95.9,0,0,2.9,17],["DestroX",18,7,6,17,5,99.8,1,0,2.6,16],["greenland",16,7,7,16,3,86.0,0,0,3.0,16],["Tribe of Judah",17,7,7,15,2,91.0,0,0,2.5,15],["BT",18,7,7,15,2,87.7,0,0,2.7,15],["Nikesh",17,7,6,13,3,86.5,1,0,2.8,12],["Archie02",17,4,4,9,1,88.8,0,0,3.0,9],["shield",18,3,1,1,0,89.0,2,0,3.0,-1]]},"curTop":[],"next":{"kind":"regular","round":null,"opp":"大唐游侠","start":"2026-11-10T22:10:08+00:00","size":10,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1},"usAvg":29.8,"usD":99.7,"usN":10,"oppAvg":null,"oppD":null,"oppN":0,"lineup":[["Archie",18,0],["mr razzi",18,0],["亗 Khnum-Atum~ra",18,0],["KingTrents⚡️",18,0],["BigDog",18,0],["PsuedoVirus",18,0],["adi",18,0],["BIKE-Ñ=UFC+24",18,0],["greenland",16,0],["niczll",18,0]]},"scout":{"opp":"大唐游侠","size":10,"level":20,"w":128,"l":68,"t":48,"streak":0,"league":"Master League I","public":true,"members":36,"oppN":9,"oppWins":4,"oppAvg":28.9,"oppD":98.3,"usN":10,"usWins":4,"usAvg":29.8,"usD":99.7,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwlLast":{"league":"Master League II","season":"2026-11-01","place":2,"of":8,"stars":595,"done":7,"final":true,"result":"promoted"},"needsReview":[],"cwlRates":{},"drill":{"wars":[["CWL R7","ملوک الیل","win","2026-11-09",1],["CWL R6","Valar Murghulis","lose","2026-11-08",1],["CWL R5","FORTUNA","win","2026-11-07",1],["CWL R4","العشرة مدرسة 2","win","2026-11-06",1],["CWL R3","03’ Banshee","lose","2026-11-05",1],["CWL R2","HAK YOL İSLAM","win","2026-11-04",1],["CWL R1","BRIGHT FUTURE","win","2026-11-03",1]],"p":{"8":[[0,1,[[3,100,1]],1],[1,1,[[2,97,1]],1],[2,1,[[2,96,1]],2],[3,1,[[3,100,1]],2],[4,1,[[3,100,1]],1],[5,1,[[3,100,1]],2]],"2":[[0,2,[[3,100,2]],1],[1,2,[[3,100,2]],3],[2,2,[[3,100,2]],3],[3,2,[[2,89,2]],2],[4,2,[[3,100,2]],2],[5,2,[[3,100,2]],1]],"4":[[0,3,[[2,95,3]],3],[1,3,[[3,100,3]],3],[2,3,[[3,100,3]],2],[3,3,[[2,83,3]],3],[4,3,[[2,90,3]],3],[5,3,[[3,100,3]],3]],"3":[[0,4,[[3,100,4]],3],[1,4,[[3,100,4]],3],[2,4,[[3,100,4]],3],[3,4,[[2,97,4]],2],[4,4,[[3,100,4]],3],[5,5,[[3,100,5]],3]],"5":[[0,5,[[3,100,5]],2],[1,5,[[3,100,5]],1],[2,5,[[3,100,5]],1],[3,5,[[2,94,5]],2],[4,5,[[3,100,5]],2],[5,4,[[1,69,4]],1]],"44":[[0,6,[[3,100,6]],null],[1,6,[[2,77,6]],3],[2,6,[[3,100,6]],2],[3,6,[[3,100,6]],3],[4,6,[[2,62,6]],2],[5,6,[[2,50,6]],3]],"0":[[0,7,[[3,100,7]],3],[1,7,[[3,100,7]],1],[2,7,[[3,100,7]],2],[3,7,[[3,100,7]],3],[4,7,[[3,100,7]],2],[5,7,[[3,100,7]],3]],"1":[[0,8,[[3,100,8]],3],[1,8,[[3,100,8]],3],[2,8,[[3,100,8]],3],[3,8,[[3,100,8]],2],[4,8,[[3,100,8]],3],[5,8,[[3,100,8]],2]],"21":[[0,9,[[3,100,9]],3],[1,9,[[3,100,9]],3],[2,9,[[3,100,9]],1],[3,9,[[3,100,9]],3],[4,9,[[3,100,9]],2],[5,9,[[3,100,9]],3]],"24":[[0,10,[[3,100,10]],3],[1,10,[[3,100,10]],2],[2,10,[[3,100,10]],2],[3,10,[[3,100,10]],2],[4,10,[[3,100,10]],3],[5,10,[[3,100,10]],3]],"17":[[0,11,[[3,100,11]],null],[1,11,[[3,100,22]],3],[2,11,[[3,100,11]],3],[3,11,[[2,97,11]],3],[4,11,[[2,97,11]],2],[5,11,[[2,83,11]],3]],"10":[[0,12,[[3,100,12]],1],[1,12,[[3,100,12]],2],[2,12,[[3,100,12]],2],[3,12,[[3,100,12]],3],[4,12,[[3,100,12]],3],[5,12,[[3,100,12]],2]],"6":[[0,13,[[3,100,13]],2],[1,13,[[3,100,13]],3],[2,13,[[3,100,18]],3],[3,13,[[2,86,13]],3],[4,13,[[2,89,13]],3],[5,13,[[3,100,13]],3]],"23":[[0,14,[[2,85,14]],3],[1,14,[[2,79,14]],3],[2,14,[[3,100,14]],2],[3,14,[[2,85,14]],2],[4,14,[[1,83,14]],null],[5,14,[[2,82,14]],3]],"18":[[0,15,[[3,100,15]],2],[1,19,[[3,100,19]],2],[2,19,[[3,100,19]],1],[3,19,[[1,65,19]],2],[4,20,[[2,72,20]],3],[5,20,[[3,100,20]],2]],"25":[[0,16,[[3,100,16]],3],[1,15,[[3,100,15]],3],[2,15,[[3,100,15]],2],[3,16,[[2,90,16]],3],[4,16,[[2,89,16]],3],[5,16,[[3,100,16]],3]],"7":[[0,17,[[3,100,17]],2],[1,16,[[3,100,16]],3],[2,16,[[3,100,16]],2],[3,15,[[3,100,15]],3],[4,15,[[2,68,15]],3],[5,15,[[2,86,15]],3]],"20":[[0,18,[[1,94,18]],3],[1,17,[[3,100,17]],3],[2,17,[[3,100,17]],3],[3,17,[[3,100,17]],null],[4,18,[[2,78,18]],3],[5,18,[[2,98,18]],2]],"15":[[0,19,[[3,100,19]],2],[1,18,[[2,99,18]],3],[2,18,[[3,100,13]],2],[3,18,[],3],[4,19,[[3,100,19]],2],[5,19,[[3,100,19]],3]],"28":[[0,20,[[3,100,20]],3],[1,20,[[3,100,20]],3],[2,20,[[3,100,20]],2],[3,20,[[3,100,20]],null],[4,21,[[2,82,21]],2],[5,21,[[3,100,21]],2]],"9":[[0,21,[[3,100,21]],null],[1,21,[[2,93,21]],3],[2,21,[[3,100,21]],3],[3,21,[[3,100,21]],3],[4,22,[[2,97,22]],3],[5,22,[[3,100,22]],1]],"22":[[0,22,[[2,80,22]],null],[1,22,[],3],[2,22,[[3,100,22]],2],[3,22,[[1,91,22]],null],[4,23,[[1,48,23]],3],[5,23,[[3,100,23]],3]],"12":[[0,23,[[3,100,23]],1],[1,23,[[3,100,23]],1],[2,23,[[3,100,23]],2],[3,23,[[3,100,23]],null],[4,24,[[3,100,24]],3],[5,24,[[3,100,24]],3]],"36":[[0,24,[[3,100,24]],2],[1,24,[[3,100,24]],3],[2,24,[[3,100,24]],3],[3,24,[[2,74,24]],3],[4,25,[[2,85,25]],3],[5,25,[[3,100,25]],3]],"16":[[0,25,[[2,87,25]],3],[1,25,[[1,93,25]],3],[2,25,[[3,100,25]],2],[3,25,[[3,100,25]],3],[4,26,[[3,100,26]],3],[5,26,[[2,95,26]],3]],"33":[[0,26,[[2,99,26]],null],[1,26,[[2,96,26]],3],[2,26,[[3,100,26]],2],[3,26,[[2,90,26]],3],[4,27,[[1,64,27]],3],[5,27,[[2,88,27]],2]],"39":[[0,27,[[3,100,27]],3],[1,27,[[3,100,27]],3],[2,27,[[3,100,27]],3],[3,27,[[3,100,27]],3],[4,28,[[3,100,28]],3],[5,28,[[3,100,28]],2]],"38":[[0,28,[[2,75,28]],3],[1,28,[[3,100,28]],3],[2,28,[[2,97,28]],3],[3,28,[[2,54,28]],3],[4,29,[[1,76,29]],3],[5,29,[[3,100,29]],3]],"35":[[0,29,[[3,100,29]],3],[1,29,[[2,95,29]],3],[2,29,[[2,87,29]],3],[3,29,[[2,73,29]],3]],"19":[[0,30,[[3,100,30]],0],[1,30,[[3,100,30]],3],[2,30,[[3,100,30]],3],[3,30,[[3,100,30]],3],[4,30,[[1,62,30]],3],[5,30,[[2,97,30]],3]]}},"don":{"year":2026,"since":"2026-11-04T04:35:53+00:00","rows":[["亗 Khnum-Atum~ra",311,0],["KingTrents⚡️",3311,146],["Archie",1431,0],["mr razzi",1633,515],["Keith1972",1016,0],["Iron Buff",4570,4571],["PsuedoVirus",1406,3830],["BIKE-Ñ=UFC+24",558,2049],["King_Savage_999",0,0],["Alf",623,0],["BigDog",1625,1050],["jaggerman2002",40,104],["AlreadyGotTwo",2084,454],["Mr. Mayhem",193,132],["good luck",0,89],["DestroX",317,59],["FRE@K$TONE",569,2622],["Hateful",466,0],["丂卄么几ズ卂尺",680,734],["niczll",67,1704],["Hammad Khan",903,445],["Fatal Justice",2955,2625],["Nikesh",0,0],["BT",327,252],["Lethal Formula",1677,3254],["adi",1241,549],["Steel_Fury",0,0],["BConn",0,0],["Why Not!",81,608],["VENGEANCE",179,0],["GodHelpsYou",1861,2274],["Rajat75",0,0],["defence",230,0],["Tribe of Judah",140,0],["musher13",1035,1672],["Archie02",0,0],["BT 2",357,93],["Amaripotpot",0,0],["greenland",180,0],["Violent Desire",891,3107],["Ei",85,55],["scacer",0,0],["sultan abdullah",0,0],["Soliv@g@nt",34,0],["huskernsooner",0,0],["mohanad",0,0],["Aman",0,0]]},"regularTracked":0,"updated":"Nov 10, 2:35 PM CT","updatedISO":"2026-11-10T20:35:02+00:00","cwlOdds":null,"status":{"api":"ok","checked":"2026-11-10T20:35:04+00:00","parts":{"cwl":"ok","war":"ok"}}};
 let state = structuredClone(SNAPSHOT);
 const LINEUP_SIZE = 30, BUBBLE_SIZE = 5, UNLOCK_WARS = 10, MIN_WARS = 3;
 const ME_TAGNAME = "KingTrents⚡️";
@@ -555,9 +555,10 @@ function players(){
     o.given=o.defWars?o.defStars/o.defWars:null;
     o.slots=(o.avail||0)+Math.max(0,(o.att||0)-(o.used||0)); o.off=o.slots?(o.stars-Math.max(0,o.missed||0))/o.slots:null;   // missed attack = -1 star
     return o; });
-// same order as MVP and 🐐 Thieves: net stars per attack → fewest stars given up → hitting up / tougher bases → attack % → lowest % given up
-const cmpMVP=(a,b)=>((b.off??-1)-(a.off??-1)) || ((a.given??1.5)-(b.given??1.5)) || (((b.up||0)-(b.down||0))-((a.up||0)-(a.down||0))) || ((a.avgT??99)-(b.avgT??99)) || ((b.avgD??0)-(a.avgD??0)) || ((a.givenD??50)-(b.givenD??50));
+
 }
+// same order as MVP and 🐐 Thieves: stars, then stars given up, then attack %, then % given up, then tougher bases
+const cmpMVP=(a,b)=>((b.off??-1)-(a.off??-1)) || ((a.given??1.5)-(b.given??1.5)) || ((b.avgD??0)-(a.avgD??0)) || ((a.givenD??50)-(b.givenD??50)) || ((a.avgT??99)-(b.avgT??99));
 function updLine(){
   const now=new Date(), last=state.updatedISO?fmtCT(new Date(state.updatedISO)):(state.updated||"unknown");
   const next=new Date(now); next.setSeconds(0,0); next.setMinutes(UPDATE_MINUTE);
@@ -600,7 +601,7 @@ function cwlP(c){ const L=c&&c.kind==="cwl"&&state.cwlOdds&&state.cwlOdds.liveWi
   const a=L[`${US()}|${c.opp}`], b=L[`${c.opp}|${US()}`]; return a!=null?a/100:b!=null?1-b/100:null; }
 /* projected box: only call a winner at 75%+ confidence, otherwise it's a toss-up */
 function callP(P){ if(P==null) return ""; const us=P>=0.5, pc=Math.round(Math.max(P,1-P)*100);
-  return pc<75?`<small class="warn">Toss-up · ${Math.round(P*100)}% us</small>`:`<small class="${us?"up":"bad"}">${us?"Us":"Them"} · ${pc}%</small>`; }
+  return pc<75?`<small class="warn">Toss-up · ${Math.round(P*100)}%</small>`:`<small class="${us?"up":"bad"}">${us?"Us":"Them"} · ${pc}%</small>`; }
 function projWin(uName,oName,pu,pt,du,dt,P){
   if(P!=null){ const us=P>=0.5, pc=Math.round(Math.max(P,1-P)*100), cls=pc<60?"mid":us?"good":"bad";
     return `<div class="proj ${cls}"><span class="pl-l">Projected winner</span><b>${nm(us?uName:oName)}</b><span class="pl-s">${pu}–${pt} · ${pc}% to win</span></div>`; }
@@ -621,27 +622,6 @@ function projPair(c){
          if(state.scout&&state.scout.oppAvg) tp=state.scout.oppAvg/(c.size*c.apm); }
   return [projFinal(c.us.s,c.us.a??0,c.size,c.apm,up), projFinal(c.them.s,c.them.a??0,c.size,c.apm,tp)];
 }
-/* ---------- first glance: what's happening right now ---------- */
-function renderGlance(){
-  const c=state.current, nx=state.next, g=$("glance"); if(!g) return;
-  const box=(l,v,s)=>`<div><span class="label">${l}</span><b class="num">${v}</b>${s||""}</div>`;
-  const log=(state.log||[]).map(r=>Object.fromEntries((state.logCols||[]).map((k,i)=>[k,r[i]])));
-  let title, sub="", boxes=[];
-  if(c&&(c.state==="inWar"||c.state==="preparation")){
-    const day=c.state==="inWar"?"War day":"Prep day";
-    title=c.kind==="cwl"?`CWL R${c.round}`:day; sub=(c.kind==="cwl"?day+" · ":"")+"vs "+nm(c.opp);
-    if(c.state==="inWar"){ const total=c.size*c.apm, [pu,pt]=projPair(c), ua=c.us.a??0, ta=c.them.a??0;
-      const P=cwlP(c)??winP(pu,pt,Math.max(0,total-ua)/total,Math.max(0,total-ta)/total,c.size,c.us.d,c.them.d);
-      boxes=[box("Score",`${c.us.s}–${c.them.s}`,`<small>${c.us.d.toFixed(1)}% vs ${c.them.d.toFixed(1)}%</small>`),box("Hits left",`${total-ua} · ${total-ta}`,"<small>us · them</small>"),box("Projected",`${pu}–${pt}`,callP(P))]; }
-    else { const top=o=>{ const k=Object.keys(o||{}).map(Number); if(!k.length) return [null,0]; const t=Math.max(...k); return [t,o[t]]; }, [ut,un]=top(c.usTH), [tt,tn]=top(c.oppTH);
-      boxes=[box("Size",`${c.size}v${c.size}`),box("Max Town Halls",`${un} · ${tn}`,`<small>TH${ut??"–"} us · TH${tt??"–"} them</small>`),box("War starts",eta(c.start)||"–")]; }
-  } else {
-    title="Resting"; const lw=log[0], l10=log.slice(0,10);
-    boxes=[box("Last war",lw?`${lw.s}–${lw.os}`:"–",lw?`<small class="${lw.res==="win"?"up":lw.res==="lose"?"bad":"warn"}">${lw.res==="lose"?"loss":lw.res} vs ${esc(lw.opp)}</small>`:""),
-      box("Last 10",`${l10.filter(x=>x.res==="win").length}–${l10.filter(x=>x.res==="lose").length}–${l10.filter(x=>x.res==="tie").length}`,"<small>W–L–T</small>"),
-      box("Next",nx?(nx.kind==="cwl"?`CWL R${nx.round}`:"War"):"–",nx&&nx.start?`<small>in ${eta(nx.start)}</small>`:"<small>no war found yet</small>")]; }
-  g.innerHTML=`<div class="gl-h"><b>${title}</b><span class="note">${sub}</span></div><div class="mini3">${boxes.join("")}</div>`;
-}
 function renderWar(){
   const c=state.current, el=$("war");
   if(!c){
@@ -649,11 +629,10 @@ function renderWar(){
     el.innerHTML=`<div class="note" style="font-size:14px">No war on right now. When the next war search finds a match, the scouting report and projection show up here.</div>`; return;
   }
   const label=c.kind==="cwl"?`CWL Round ${c.round}`:`Regular war · ${c.size}v${c.size}`;
-  $("war-title").textContent=c.state==="preparation"?"Prep day":"Battle day";
+  $("war-title").textContent="Battle day";
   $("war-note").innerHTML=c.kind==="cwl"?`${esc(label)} · <a href="cwl.html">CWL Tracker →</a>`:esc(label);
   if(c.state==="preparation"){
-    el.innerHTML=`<div class="war-h"><div><div class="label">vs</div><div class="score" style="font-size:26px">${nm(c.opp)}</div></div></div>
-      <div class="note">Scout your target and plan your hits. Scouting report and projection are below.</div>`; return;
+    el.innerHTML=`<div class="note" style="font-size:14px">Starts ${esc(c.start?fmtCT(new Date(c.start)):"soon")} vs ${nm(c.opp)}. Scout your mirror and plan your hits. Keys and the scouting report are below.</div>`; return;
   }
   const total=c.size*c.apm, used=c.us.a??(total-(c.attacksLeft??0)), themUsed=c.them.a??0;
   const cap=c.size*3;
@@ -661,11 +640,10 @@ function renderWar(){
   const [pu,pt]=projPair(c);
   const pips=Array.from({length:total},(_,i)=>`<i class="${i<used?'on':''}"></i>`).join("");
   const pend=c.pending||[];
-  el.innerHTML=`<div class="war-h"><div><div class="label">vs ${nm(c.opp)}</div><div class="score num">${c.us.s}<span>–</span>${c.them.s}</div></div><span class="note num">${c.us.d.toFixed(1)}% vs ${c.them.d.toFixed(1)}%</span></div>
-    <div class="mini3"><div><span class="label">Our attacks</span><b class="num">${used}/${total}</b><small>${c.usAvgAtk!=null?(+c.usAvgAtk).toFixed(2)+"★ avg":used?(c.us.s/used).toFixed(2)+"★ avg":"–"}</small></div><div><span class="label">Their attacks</span><b class="num">${themUsed}/${total}</b><small>${c.themAvgAtk!=null?(+c.themAvgAtk).toFixed(2)+"★ avg":themUsed?(c.them.s/themUsed).toFixed(2)+"★ avg":"–"}</small></div><div><span class="label">Projected</span><b class="num">${pu}–${pt}</b>${callP(cwlP(c)??winP(pu,pt,Math.max(0,total-used)/total,Math.max(0,total-themUsed)/total,c.size,c.us.d,c.them.d))}</div></div>
-    <details class="bd-more"${window.bdOpen?" open":""}><summary>Who's left${pend.length?" ("+pend.length+")":""}</summary><div class="pips" style="--n:${total}" role="img" aria-label="${used} of ${total} attacks used">${pips}</div>
+  let ends=""; if(c.end){ const ms=new Date(c.end)-Date.now(); ends=ms>0?`Ends ${esc(fmtCT(new Date(c.end)))}`:"War time is up"; }
+  el.innerHTML=`<div class="foot" style="display:flex;justify-content:space-between"><span class="label">${used}/${total} our attacks · ${themUsed}/${total} theirs</span><span class="note">${ends}</span></div><div class="pips" style="--n:${total}" role="img" aria-label="${used} of ${total} attacks used">${pips}</div>
     
-    ${pend.length?`<div class="label">Still to attack (${pend.length})</div><div class="chips">${(window.pendAll?pend:pend.slice(0,5)).map(p=>`<span class="chip"><span>${pl(p.n)}</span><small>TH${esc(p.th)}${p.left>1?' · x'+p.left:''}</small></span>`).join("")}${pend.length>5?`<button type="button" class="chip more-chip" data-pend-toggle aria-expanded="${!!window.pendAll}">${window.pendAll?"show less":"See all "+pend.length}</button>`:""}</div>`:`<div class="good" style="font-weight:600">Everyone's in 🫡</div>`}</details>`;
+    ${pend.length?`<div class="label">Still to attack (${pend.length})</div><div class="chips">${(window.pendAll?pend:pend.slice(0,5)).map(p=>`<span class="chip"><span>${pl(p.n)}</span><small>TH${esc(p.th)}${p.left>1?' · x'+p.left:''}</small></span>`).join("")}${pend.length>5?`<button type="button" class="chip more-chip" data-pend-toggle aria-expanded="${!!window.pendAll}">${window.pendAll?"show less":"See all "+pend.length}</button>`:""}</div>`:`<div class="good" style="font-weight:600">Everyone's in 🫡</div>`}`;
 }
 /* ---------- keys to victory: plain-language callouts from the numbers ---------- */
 function thEdge(us,them){
@@ -678,6 +656,7 @@ function thEdge(us,them){
   return {top,u,t,gap:t-u,avg};
 }
 function thKey(e,opp,when){
+  if(e&&e.gap===0&&Math.abs(e.avg)>=0.1) return {cls:e.avg>0?"good":"warn",ic:"⚖️",h:`Even at the top: ${e.u} TH${e.top}s each${when}.`,p:e.avg>0?"Our lower end is a little heavier, so our bottom hitters should have the easier triples.":"Their lower end is a little heavier, so our bottom hitters need clean attacks."};
   if(!e||(!e.gap&&Math.abs(e.avg)<0.1)) return e?{cls:"",ic:"⚖️",h:"Even matchup on paper.",p:`Both sides bring ${e.u} TH${e.top}s${when}. Execution decides this one, not Town Halls.`}:null;
   if(e.gap>0&&e.gap<=2) return {cls:"warn",ic:"⚖️",h:`Slightly heavier on their side: ${e.t} TH${e.top}s vs our ${e.u}${when}.`,
     p:`Only ${e.gap} more max Town Hall${e.gap===1?"":"s"}, so it's close to even. Clean triples from our TH${e.top}s keep it that way.`};
@@ -720,147 +699,153 @@ function renderKeys(){
   $("keys-next-g").hidden=!nlist.length; $("keys-next").innerHTML=nlist.map(card).join("");
   $("keys-next-l").textContent=nx?`Next war · ${nx.kind==="cwl"?"R"+nx.round+" ":""}vs ${nx.opp}`:"Next war";
 }
-/* ---------- path to victory: who matters most for the win ---------- */
-/* ---------- our bases: big, scannable, so everyone can check their own ---------- */
-function defGrid(c,link){
-  const ob=c.ourBases||[]; if(!ob.length) return "";
-  const left=(c.oppLeft||[]).reduce((x,o)=>x+o[2],0);
-  const cells=ob.map(([pos,n,th,best,hits])=>{ const st=!hits?"untested":best>=3?"3★ taken":`held ${best}★`, cl=!hits?"u":best>=3?"x":best<=1?"g":"m";
-    return `<div class="db ${cl}"><b>#${pos}</b><span>${link(n)}</span><small>${st}</small></div>`; }).join("");
-  return `<div class="tg-h"><span class="label">Our bases</span><span class="note">${left?`${left} attack${left===1?"":"s"} still coming`:"they're done"}</span></div><div class="dbs">${cells}</div>`;
+/* ---------- shout-outs: the hits and holds that swung things, newest wins ties ---------- */
+function shoutouts(c,link){
+  const out=[];
+  (c.feed||[]).forEach((x,k)=>{ const [o,sd,an,ath,ap,dn,dth,dp,st,pc,nw]=x; let sc=0, txt="";
+    if(sd==="us"&&st===3){
+      if(ath<dth){ sc=4; txt=`🔥 ${link(an)} tripled #${dp}, a TH${dth} from TH${ath}`; }
+      else if(nw>=2&&nw<3){ sc=3; txt=`🧹 ${link(an)} cleaned up #${dp} for +${nw}★`; }
+      else if(dp===1){ sc=3; txt=`👑 ${link(an)} tripled their #1`; }
+      else if(dp<ap){ sc=2.5; txt=`🔥 ${link(an)} tripled #${dp}, hitting up from #${ap}`; }
+    }
+    if(sd==="them"){
+      if(st<=1){ sc=ath>dth?4.5:3.5; txt=`🛡️ ${link(dn)} held a TH${ath} to ${st}★`; }
+      else if(st===2&&ath>dth){ sc=2.5; txt=`🛡️ ${link(dn)} held a TH${ath} to 2★`; }
+    }
+    if(sc>=2.5) out.push({sc:sc-k*0.01,txt});
+  });
+  return out.sort((a,b)=>b.sc-a.sc).slice(0,3);
 }
-/* ---------- best strategy: play the rest of the war out 10,000 times (mirrors), find the winning line + the hits that swing it ---------- */
-function bestStrat(c,plan,link){
-  const pend=c.pending||[], ob=c.ourBases||[], ol=c.oppLeft||[]; if(!pend.length||!ob.length) return "";
-  let seed=1234567; const rnd=()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
-  const open0={}; (c.openBases||[]).forEach(([pos,th,best])=>open0[pos]=best);
-  const fu=(c.feed||[]).filter(x=>x[1]==="us"), ft=(c.feed||[]).filter(x=>x[1]==="them");
-  const us3=(fu.filter(x=>x[8]===3).length+1.8)/(fu.length+3), them3=(ft.filter(x=>x[8]===3).length+1.8)/(ft.length+3);
-  const atk=[], usedPlan=new Set();
-  pend.forEach(p=>{ for(let k=0;k<(p.left||1);k++){ let pos=null;
-    if(k===0&&open0[p.rank]!=null) pos=p.rank;
-    else { const j=plan.findIndex((q,i)=>!usedPlan.has(i)&&q.h.n===p.n&&q.b); if(j>=0){ usedPlan.add(j); pos=plan[j].b.pos; } }
-    atk.push({n:p.n,pos,first:k===0,p3:Math.min(.95,p.tri!=null?.6*p.tri/100+.4*us3:us3)}); } });
-  const theirs=[]; ol.forEach(o=>{ for(let k=0;k<o[2];k++) theirs.push(o[0]); });
-  const roll=p3=>{ if(rnd()>.975) return -1; if(rnd()<p3) return 3; const q=rnd(); return q<.75?2:q<.95?1:0; };
-  const pick=B=>{ let pos=null,g=0; for(const k in B) if(3-B[k]>g){ g=3-B[k]; pos=k; } return pos; };
-  const N=10000, names=[...new Set(atk.filter(a=>a.first).map(a=>a.n))], S={}; names.forEach(n=>S[n]={a:0,aw:0,b:0,bw:0});
-  let wins=0; const W=[];
-  for(let s=0;s<N;s++){
-    const B={...open0}, got={}; let us=c.us.s, tri=0;
-    for(const a of atk){ let pos=a.pos; if(pos==null||B[pos]==null||B[pos]>=3) pos=pick(B); const r=roll(a.p3); if(a.first) got[a.n]=r===3; if(pos==null||r<0) continue; if(r===3) tri++; if(r>B[pos]){ us+=r-B[pos]; B[pos]=r; } }
-    const D={}; ob.forEach(b=>D[b[0]]=b[3]); let them=c.them.s;
-    for(const t of theirs){ let pos=t; if(D[pos]==null||D[pos]>=3) pos=pick(D); const r=roll(them3); if(pos==null||r<0) continue; if(r>D[pos]){ them+=r-D[pos]; D[pos]=r; } }
-    const w=us>them?1:us===them?.5:0; wins+=w; if(w===1) W.push([us,them,tri]);
-    for(const n of names){ const x=S[n]; if(got[n]){ x.a++; x.aw+=w; } else { x.b++; x.bw+=w; } }
-  }
-  const med=i=>{ const v=W.map(x=>x[i]).sort((a,b)=>a-b); return v[Math.floor(v.length/2)]; };
-  const P3=Object.fromEntries(atk.filter(a=>a.first).map(a=>[a.n,a.p3]));
-  const sw=names.map(n=>{ const x=S[n], p=pend.find(q=>q.n===n); return {n,pos:p&&p.rank,tri:p&&p.tri,p3:P3[n],d:(x.a>50&&x.b>50)?(x.aw/x.a-x.bw/x.b)*100:0}; }).filter(x=>x.d>=2);
-  const sure=sw.filter(x=>(x.tri??0)>=70).sort((a,b)=>b.d-a.d), focus=sw.filter(x=>(x.tri??0)<70).sort((a,b)=>b.d*(1-b.p3)-a.d*(1-a.p3)).slice(0,5);
-  const ours=atk.length, theirN=theirs.length;
-  let line;
-  if(W.length<N*.02) line=`<b>No realistic winning line left.</b> Even the best runs fall short, so push max destruction.`;
-  else { const mt=med(2), mu=med(0), mth=med(1);
-    line=`<b>Winning line:</b> about <b>${mt} triple${mt===1?"":"s"}</b> from our ${ours} hit${ours===1?"":"s"}${theirN?`, with their ${theirN} held to about <b>${((mth-c.them.s)/theirN).toFixed(1)}★ per hit</b>`:""}. That lands around ${mu}–${mth}.`; }
-  const rows=focus.map(x=>`<div class="bs-r"><span>${link(x.n)} <span class="note">#${x.pos} · ${x.tri!=null?x.tri+"% triples":"no history"}</span></span><b>+${Math.round(x.d)}%</b></div>`).join("");
-  // regular wars: mirror inside the first 12 hours, second attack is cleanup
-  let reg="";
-  if((c.apm||1)>=2){ const hrs=c.start?(Date.now()-new Date(c.start))/36e5:0, noMirror=pend.filter(p=>(p.left||0)>=c.apm);
-    const clean=(c.openBases||[]).filter(([pos,th,best])=>best>0||!pend.some(p=>p.rank===pos&&(p.left||0)>=c.apm)||hrs>=12).map(([pos,th,best])=>`#${pos}${best?" ("+best+"★)":""}`).slice(0,8);
-    reg=`<div class="bs-l">${hrs<12?`<b>Mirror window:</b> ${Math.max(1,Math.round(12-hrs))}h left.${noMirror.length?` Still to hit their mirror: ${noMirror.slice(0,6).map(p=>link(p.n)).join(", ")}${noMirror.length>6?` +${noMirror.length-6}`:""}.`:" Every mirror is in."}`:`<b>Mirror window closed.</b> Any open base is fair game.`}${clean.length?` <b>Cleanup:</b> ${clean.join(", ")}.`:""}</div>`; }
-  return `<div class="tg-h"><span class="label">Best strategy</span><span class="note">10,000 simulated finishes</span></div><div class="bs"><div class="bs-l">${line}</div>${reg}${sure.length?`<div class="bs-l"><b>Usual hitters, keep tripling:</b> ${sure.slice(0,6).map(x=>link(x.n)).join(", ")}${sure.length>6?` +${sure.length-6}`:""}.</div>`:""}${rows?`<div class="bs-s"><span class="note">Focus hits: least certain triples, and the win chance each one adds</span>${rows}</div>`:""}</div>`;
+/* ---------- first glance: what's happening right now ---------- */
+function renderGlance(){
+  const c=state.current, nx=state.next, g=$("glance"); if(!g) return;
+  const box=(l,v,s)=>`<div><span class="label">${l}</span><b class="num">${v}</b>${s||""}</div>`;
+  const log=(state.log||[]).map(r=>Object.fromEntries((state.logCols||[]).map((k,i)=>[k,r[i]])));
+  let title, sub="", boxes=[], extra="";
+  if(c&&(c.state==="inWar"||c.state==="preparation")){
+    const day=c.state==="inWar"?"War day":"Prep day";
+    title=c.kind==="cwl"?`CWL R${c.round}`:day; sub=(c.kind==="cwl"?day+" · ":"")+"vs "+nm(c.opp);
+    if(c.state==="inWar"){ const total=c.size*c.apm, [pu,pt]=projPair(c), ua=c.us.a??0, ta=c.them.a??0;
+      const P=cwlP(c)??((c.pending||[]).length?simFor(c).P:winP(pu,pt,Math.max(0,total-ua)/total,Math.max(0,total-ta)/total,c.size,c.us.d,c.them.d));
+      boxes=[box("Score",`${c.us.s}–${c.them.s}`,`<small>${c.us.d.toFixed(1)}% vs ${c.them.d.toFixed(1)}%</small>`),box("Hits left",`${total-ua} · ${total-ta}`,"<small>us · them</small>"),box("Projected",`${pu}–${pt}`,callP(P))];
+      const so=shoutouts(c,pl);
+      if(so.length) extra=`<div class="shout"><span class="label">Shout-outs</span>${so.map(s=>`<div>${s.txt}</div>`).join("")}</div>`; }
+    else { const top=o=>{ const k=Object.keys(o||{}).map(Number); return k.length?Math.max(...k):null; }, t=Math.max(top(c.usTH)??0,top(c.oppTH)??0);
+      boxes=[box("Size",`${c.size}v${c.size}`,`<small>${c.apm} attack${c.apm===1?"":"s"} each</small>`),box(`TH${t||"–"}s`,`${(c.usTH||{})[t]||0} · ${(c.oppTH||{})[t]||0}`,"<small>us · them</small>"),box("Battle in",eta(c.start)||"–",`<small>${c.start?esc(fmtCT(new Date(c.start))):""}</small>`)]; }
+  } else {
+    title="Resting"; const lw=log[0], l10=log.slice(0,10);
+    boxes=[box("Last war",lw?`${lw.s}–${lw.os}`:"–",lw?`<small class="${lw.res==="win"?"up":lw.res==="lose"?"bad":"warn"}">${lw.res==="lose"?"loss":lw.res} vs ${esc(lw.opp)}</small>`:""),
+      box("Last 10",`${l10.filter(x=>x.res==="win").length}–${l10.filter(x=>x.res==="lose").length}–${l10.filter(x=>x.res==="tie").length}`,"<small>W–L–T</small>"),
+      box("Next",nx?(nx.kind==="cwl"?`CWL R${nx.round}`:"War"):"–",nx&&nx.start?`<small>in ${eta(nx.start)}</small>`:"<small>searching</small>")]; }
+  g.innerHTML=`<div class="gl-h"><b>${title}</b><span class="note">${sub}</span></div><div class="mini3">${boxes.join("")}</div>${extra}`;
 }
-/* ---------- path to victory (battle day): what we need, what they can do, who hits where ---------- */
-function pvCard(c,plan,need,left,per,maxGain,pu,pt,link){
-  let cls, h;
-  if(need===0){ cls="good"; h=`<b>On track</b> · projected ${pu}–${pt}. Use every attack.`; }
-  else if(maxGain<need){ cls="bad"; h=`<b>Long shot</b> · need ${need}★, best case +${maxGain}★. Max destruction.`; }
-  else { cls=per>2.2?"bad":per>1.6?"mid":"good"; h=`<b>Need ${need}★</b> from ${left} attack${left===1?"":"s"} · ${per.toFixed(1)} per hit`; }
-  const ob=c.ourBases||[], ol=c.oppLeft||[]; let s="";
-  if(ob.length){ const tl=ol.reduce((x,o)=>x+o[2],0), top=(a,n)=>a.sort((x,y)=>y-x).slice(0,n).reduce((x,y)=>x+y,0);
-    s=tl?`They have ${tl} left: ${c.them.s+top(ob.map(b=>Math.max(0,2-b[3])),tl)}★ if held to 2s, ${c.them.s+top(ob.map(b=>3-b[3]),tl)}★ if all triple.`:`They're done at ${c.them.s}★.`; }
-  const seen=new Set(), T=plan.filter(p=>{ if(seen.has(p.h.n)) return false; seen.add(p.h.n); return true; });
-  const chip=p=>{ const k=p.b&&p.b.gain>=2&&(p.h.tri??0)>=60; return `<div class="tg${k?" k":""}"><span>${link(p.h.n)}</span><b>${p.b?"#"+p.b.pos:"%"}</b></div>`; };
-  const tg=T.length?`<div class="tg-h"><span class="label">Targets</span><span class="note">highlighted = go for the triple</span></div><div class="tgs">${T.slice(0,window.tgAll?99:10).map(chip).join("")}</div>${T.length>10?`<button type="button" class="tg-more" data-tg-more>${window.tgAll?"show less":"+"+(T.length-10)+" more"}</button>`:""}`:"";
-  return `<div class="pv2 ${cls}"><div class="pv2-h">${h}</div>${s?`<div class="pv2-s">${s}</div>`:""}</div>${bestStrat(c,plan,link)}`;
+/* ---------- path to victory (battle day): offense or defense, the realistic read, and the hits that swing it ---------- */
+// triple rates by Town Hall gap (attacker minus defender), from our tracked wars: down 79%, even 72%, up 50%
+const TRI_GAP={1:0.79,0:0.72,"-1":0.50};
+const triGap=d=>TRI_GAP[Math.max(-1,Math.min(1,d))];
+function chance(need,usual){ // how realistic it is to average `need` when the usual is `usual`
+  if(need<=0) return ["done","good"];
+  if(usual==null) return ["unknown",""];
+  const d=usual-need;
+  return d>=0.2?["likely","good"]:d>=-0.2?["toss-up","mid"]:d>=-0.5?["unlikely","bad"]:["very unlikely","bad"];
 }
-/* ---------- war game: offense + defense, one short line per group ---------- */
-function warGame(c,plan,need,link){
-  const uniq=a=>[...new Map(a.map(p=>[p.h.n,p])).values()];
-  const names=(a,max=5)=>a.slice(0,max).map(p=>link(p.h.n)).join(", ")+(a.length>max?` +${a.length-max}`:"");
-  const fresh=plan.filter(p=>p.b&&p.b.gain>=2);
-  const closers=uniq(fresh.filter(p=>(p.h.tri??-1)>=70)), cN=new Set(closers.map(p=>p.h.n));
-  const swing=uniq(fresh.filter(p=>!cN.has(p.h.n)&&(p.h.tri==null||p.h.tri>=35))), sN=new Set(swing.map(p=>p.h.n));
-  const safe=uniq(plan.filter(p=>!cN.has(p.h.n)&&!sN.has(p.h.n)));
-  const exp=fresh.filter(p=>cN.has(p.h.n)).reduce((x,p)=>x+p.b.gain-(1-p.h.tri/100),0)+plan.filter(p=>!cN.has(p.h.n)).length*1.5;
-  const k=Math.max(1,Math.min(swing.length,Math.ceil(Math.max(0,need-exp)/1.5)));
-  const O=[], D=[];
-  if(closers.length) O.push(["Closers",`${names(closers)} <span class="note">keep tripling</span>`]);
-  if(swing.length) O.push([need===0?"Bonus":need<=exp?"Insurance":`Need ${k} triple${k===1?"":"s"}`,names(swing)]);
-  if(safe.length) O.push(["Safe 2★",names(safe)]);
-  const ob=c.ourBases||[], ol=c.oppLeft||[];
-  if(ob.length){
-    const tl=ol.reduce((x,o)=>x+o[2],0), top=(a,n)=>a.sort((x,y)=>y-x).slice(0,n).reduce((x,y)=>x+y,0);
-    const hold=c.them.s+top(ob.map(b=>Math.max(0,2-b[3])),tl), worst=c.them.s+top(ob.map(b=>3-b[3]),tl);
-    if(!tl) D.push(["Their hits",`None left, locked at ${c.them.s}★. `+(c.us.s>c.them.s?"We're ahead.":`We need ${c.them.s+1-c.us.s}★ more.`)]);
-    else D.push(["Their hits",`${tl} left. Held to 2★s they reach <b>${hold}</b>, all triples <b>${worst}</b>.`]);
-    const untested=ob.filter(b=>!b[4]), walls=ob.filter(b=>b[4]&&b[3]<=1);
-    if(tl&&untested.length) D.push([`Untested (${untested.length})`,untested.slice(0,5).map(b=>link(b[1])).join(", ")+(untested.length>5?` +${untested.length-5}`:"")]);
-    if(walls.length) D.push(["Holding",walls.slice(0,4).map(b=>`${link(b[1])} <span class="note">${b[3]}★</span>`).join(", ")]);
-  }
-  const grp=(t,R)=>R.length?`<div class="wg-g"><div class="label">${t}</div>${R.map(([l,h])=>`<div class="wg-r"><span>${l}</span><span>${h}</span></div>`).join("")}</div>`:"";
-  return (O.length||D.length)?`<div class="wg">${grp("Offense",O)}${grp("Defense",D)}</div>`:"";
-}
-function renderPath(){
-  const c=state.current, sec=$("path-sec"), el=$("path");
-  if(!c||c.state!=="inWar"||!(c.pending||[]).length){ el.innerHTML=""; $("path-note").textContent=""; sec.hidden=$("keys-sec").hidden; return; }
-  sec.hidden=false;
-  const [pu,pt]=projPair(c), left=c.attacksLeft??0;
-  const need=Math.max(0,pt+1-c.us.s);   // stars to finish above their projected total
+function warPlan(c){
   const open=(c.openBases||[]).map(([pos,th,best])=>({pos,th,best,gain:3-best}));
-  const onTable=open.reduce((x,b)=>x+b.gain,0);
-  // strongest remaining hitters take the toughest open bases they can handle (base TH not above theirs)
-  const hitters=[]; (c.pending||[]).forEach(p=>{ for(let k=0;k<(p.left||1);k++) hitters.push(p); });
+  const hitters=[]; (c.pending||[]).forEach(p=>{ for(let k=0;k<(p.left||1);k++) hitters.push({...p,first:k===0}); });
   hitters.sort((a,b)=>(b.th-a.th)||((b.tri??0)-(a.tri??0))||(a.rank-b.rank));
   const pool=[...open].sort((a,b)=>a.pos-b.pos), plan=[];
   for(const h of hitters){
-    // biggest star gain first (fresh bases), toughest first among equals, only bases this hitter's TH can handle
     const pick=ok=>{ let bi=-1; pool.forEach((b,j)=>{ if(b.gain>0&&ok(b)&&(bi<0||b.gain>pool[bi].gain||(b.gain===pool[bi].gain&&b.pos<pool[bi].pos))) bi=j; }); return bi; };
-    let i=pick(b=>(b.th??0)<=h.th); if(i<0) i=pick(()=>true);
-    if(i<0){ plan.push({h,b:null}); continue; }
-    plan.push({h,b:pool[i]}); pool.splice(i,1);
+    let i=(h.first&&pool.findIndex(b=>b.pos===h.rank&&b.gain===3)>=0&&(c.apm||1)>=2)?pool.findIndex(b=>b.pos===h.rank):-1;
+    if(i<0) i=pick(b=>(b.th??0)<=h.th); if(i<0) i=pick(()=>true);
+    plan.push({h,b:i<0?null:pool[i]}); if(i>=0) pool.splice(i,1);
   }
-  const maxGain=plan.reduce((x,p)=>x+(p.b?p.b.gain:0),0);
-  const per=left?need/left:0;
-  let head, cls;
-  if(need===0){ cls="good"; head=`<b>We're on track.</b> Projected to finish ${pu}–${pt}. Use every attack and play it safe: a sure 2★ beats a failed triple.`; }
-  else if(maxGain<need){ cls="bad"; head=`<b>Long shot.</b> We need <b>${need}★</b> more to pass their projected ${pt}, but even if every remaining hit triples its best open base that's only +${maxGain}★. Go for max destruction too, it decides ties.`; }
-  else { cls=per>2.2?"bad":per>1.6?"mid":"good"; head=`<b>Need ${need}★ from ${left} attack${left===1?"":"s"}</b> (${per.toFixed(1)} per hit) to pass their projected ${pt}. ${onTable}★ still on the table.`; }
-  const rows=plan.slice(0,10).map((p,i)=>{
-    const key=p.b&&p.b.gain>=2&&(p.h.tri??0)>=60;
-    const tgt=p.b?`→ #${p.b.pos}${p.b.th?" TH"+p.b.th:""} (${p.b.best}★ so far)`:"→ cleanup / max %";
-    const tri=p.h.tri!=null?` · ${p.h.tri}% triple rate`:"";
-    return `<div class="pv-row ${key?"pv-key":""}"><span class="k">${key?"★":i+1}</span><span class="who">${pl(p.h.n)} <span class="note">TH${esc(p.h.th)}</span><small>${esc(tgt)}${esc(tri)}</small></span><span class="gain">${p.b?"+"+p.b.gain+"★":"%"}</span></div>`;
-  }).join("");
-  $("path-note").textContent=`${left} attack${left===1?"":"s"} left`;
-  el.innerHTML=pvCard(c,plan,need,left,per,maxGain,pu,pt,pl);
+  return plan;
 }
-/* ---------- war log: our attacks + their attacks on us (newest first), one dropdown with a toggle ---------- */
-window.feedTab=window.feedTab==="all"?"atk":(window.feedTab||"atk");
-const feedShow=()=>["all","atk","def"].forEach(k=>{ $(k).hidden=window.feedTab!==k; });
+function simWar(c,plan){
+  let seed=1234567; const rnd=()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+  const fu=(c.feed||[]).filter(x=>x[1]==="us"), ft=(c.feed||[]).filter(x=>x[1]==="them");
+  const us3=(fu.filter(x=>x[8]===3).length+2.2)/(fu.length+3), them3=(ft.filter(x=>x[8]===3).length+1.9)/(ft.length+3);
+  const atk=plan.map(p=>{ const gap=p.b&&p.b.th?p.h.th-p.b.th:0, base=p.h.tri!=null?.6*p.h.tri/100+.4*us3:us3;
+    return {n:p.h.n,pos:p.b&&p.b.pos,first:p.h.first,gap,p3:Math.min(.95,base*triGap(gap)/0.72)}; });
+  const ob=c.ourBases||[], thOf={}; ob.forEach(b=>thOf[b[0]]=b[2]);
+  const theirs=[]; (c.oppLeft||[]).forEach(o=>{ for(let k=0;k<o[2];k++) theirs.push({pos:o[0],th:o[1]}); });
+  const roll=p3=>{ if(rnd()>.975) return -1; if(rnd()<p3) return 3; const q=rnd(); return q<.78?2:q<.96?1:0; };
+  const pick=B=>{ let pos=null,g=0; for(const k in B) if(3-B[k]>g){ g=3-B[k]; pos=k; } return pos; };
+  const open0={}; (c.openBases||[]).forEach(([pos,th,best])=>open0[pos]=best);
+  const N=6000, names=[...new Set(atk.filter(a=>a.first).map(a=>a.n))], S={}; names.forEach(n=>S[n]={a:0,aw:0,b:0,bw:0});
+  let wins=0; const U=[], T=[];
+  for(let s=0;s<N;s++){
+    const B={...open0}, got={}; let us=c.us.s;
+    for(const a of atk){ let pos=a.pos; if(pos==null||B[pos]==null||B[pos]>=3) pos=pick(B); const r=roll(a.p3); if(a.first) got[a.n]=r===3; if(pos==null||r<0) continue; if(r>B[pos]){ us+=r-B[pos]; B[pos]=r; } }
+    const Dd={}; ob.forEach(b=>Dd[b[0]]=b[3]); let them=c.them.s;
+    for(const t of theirs){ let pos=t.pos; if(Dd[pos]==null||Dd[pos]>=3) pos=pick(Dd); if(pos==null) continue; const r=roll(Math.min(.95,them3*triGap(t.th-(thOf[pos]??t.th))/0.72)); if(r<0) continue; if(r>Dd[pos]){ them+=r-Dd[pos]; Dd[pos]=r; } }
+    const w=us>them?1:us===them?.5:0; wins+=w; U.push(us); T.push(them);
+    for(const n of names){ const x=S[n]; if(got[n]){ x.a++; x.aw+=w; } else { x.b++; x.bw+=w; } }
+  }
+  const med=v=>{ v=[...v].sort((a,b)=>a-b); return v[Math.floor(v.length/2)]; }, q=(v,f)=>{ v=[...v].sort((a,b)=>a-b); return v[Math.floor(v.length*f)]; };
+  const swing=names.map(n=>{ const x=S[n], a=atk.find(z=>z.n===n&&z.first); return {n,pos:a&&a.pos,gap:a?a.gap:0,p3:a?a.p3:0,d:(x.a>40&&x.b>40)?(x.aw/x.a-x.bw/x.b)*100:0}; })
+    .filter(x=>x.d>=3&&x.p3<0.9).sort((a,b)=>b.d*(1-b.p3)-a.d*(1-a.p3)).slice(0,3);
+  return {P:wins/N,us:med(U),them:med(T),usGood:q(U,.8),themLow:q(T,.2),swing};
+}
+function simFor(c){ const k=state.updatedISO+"|"+(c.us.a)+"|"+(c.them.a); if(window._simK!==k){ window._sim=simWar(c,warPlan(c)); window._simK=k; } return window._sim; }
+function renderPath(){
+  const c=state.current, sec=$("path-sec"), el=$("path");
+  if(!c||c.state!=="inWar"){ el.innerHTML=""; $("path-note").textContent=""; sec.hidden=$("keys-sec").hidden; return; }
+  sec.hidden=false;
+  const ob=c.ourBases||[], uLeft=c.attacksLeft??0, tLeft=(c.oppLeft||[]).reduce((x,o)=>x+o[2],0);
+  const S=simFor(c), P=cwlP(c)??S.P, cap=c.size*3;
+  const uRoom=(c.openBases||[]).reduce((x,b)=>x+3-b[2],0), tRoom=ob.reduce((x,b)=>x+3-b[3],0);
+  // what each side realistically adds per remaining hit (from the simulation, which already accounts for Town Hall gaps)
+  const uUsual=uLeft?(S.us-c.us.s)/uLeft:null, tUsual=tLeft?(S.them-c.them.s)/tLeft:null;
+  const capTie=S.them>=cap;   // they're likely to max out: we can only match, destruction decides
+  const uTarget=Math.min(cap,S.them+1), uNeed=Math.max(0,uTarget-c.us.s), tNeed=Math.max(0,Math.min(cap,S.us)-c.them.s);
+  const uPer=uLeft?uNeed/uLeft:null, tPer=tLeft?tNeed/tLeft:null;
+  const [uCh,uCls]=!uLeft||!uRoom?["done",""]:uNeed>uRoom?["not possible","bad"]:chance(uPer,uUsual);
+  const [tCh,tCls0]=!tLeft?["done",""]:tNeed>tRoom?["not possible","good"]:chance(tPer,tUsual), tCls={good:"bad",bad:"good",mid:"mid"}[tCls0]||tCls0;
+  let head, cls;
+  const pc=Math.round(P*100);
+  if(!uLeft&&!tLeft){ head=c.us.s>c.them.s?"<b>Both sides are done.</b> We're ahead.":"<b>Both sides are done.</b>"; cls=c.us.s>c.them.s?"good":"mid"; }
+  else if(!tLeft){ head=c.us.s>c.them.s?`<b>They're done at ${c.them.s}★.</b> We're already ahead, just finish clean.`:`<b>They're done at ${c.them.s}★.</b> All on our offense: ${Math.min(cap,c.them.s+1)-c.us.s}★ from ${uLeft} hit${uLeft===1?"":"s"}${c.them.s>=cap?" and more destruction":""} wins it.`; cls=c.us.s>c.them.s||uCls==="good"?"good":uCls; }
+  else if(S.us>=cap&&capTie){ head=`<b>Both sides look set for ${cap}★.</b> Destruction decides it, so every % counts on offense and every % we save on defense.`; cls="mid"; }
+  else if(P>=0.7){ head=`<b>Our offense can win this.</b> Hit our normal and we finish around ${S.us}–${S.them}, even if they hit theirs.`; cls="good"; }
+  else if(P<=0.15){ head=`<b>Long shot.</b> Likely finish ${S.us}–${S.them}. We need triples above our normal and holds on defense. Max destruction, it breaks ties.`; cls="bad"; }
+  else if(P<0.4&&S.themLow<S.us){ head=`<b>Comes down to defense.</b> Our offense gets us to about ${S.us}, they're heading for ${S.them}. A couple of holds flips it.`; cls="mid"; }
+  else if(P<0.4){ head=`<b>Needs a big offensive day.</b> At our normal pace we land ${S.us}–${S.them}. A few extra triples flips it.`; cls="mid"; }
+  else { head=`<b>Toss-up, both ends matter.</b> Likely finish ${S.us}–${S.them}. One swing triple or one hold decides it.`; cls="mid"; }
+  const row=(l,txt,ch,cl)=>`<div class="wg-r"><span>${l}</span><span>${txt} <b class="chip-s ${cl}">${ch}</b></span></div>`;
+  const off=!uLeft?`Done at ${c.us.s}★.`:!uRoom?`Every base of theirs is tripled. Only destruction left to gain.`:`Need <b>${uNeed}★</b> from ${uLeft} hit${uLeft===1?"":"s"} (${uPer.toFixed(1)} each) to ${capTie?"match":"pass"} their likely ${S.them}. We usually get ${uUsual.toFixed(1)}.`;
+  const def=!tLeft?`Done at ${c.them.s}★.`:`They need <b>${tNeed}★</b> from ${tLeft} hit${tLeft===1?"":"s"} (${tPer.toFixed(1)} each) to catch our likely ${S.us}. They usually get ${tUsual.toFixed(1)}.`;
+  // the hits that swing it: biggest change in win chance if that player triples, least certain first
+  const sw=S.swing.map(x=>`<div class="bs-r"><span>${pl(x.n)} <span class="note">→ #${x.pos??"?"}${x.gap<0?" · hitting up":x.gap>0?" · hitting down":""}</span></span><b>+${Math.round(x.d)}%</b></div>`).join("");
+  // bases they still have to crack: untested first, our strongest Town Halls first
+  const left=ob.filter(b=>b[3]<3).sort((a,b)=>(a[4]-b[4])||(b[2]-a[2])||(a[0]-b[0]));
+  const watch=tLeft?left.filter(b=>!b[4]).slice(0,4):[];
+  let mirror="";
+  if((c.apm||1)>=2){ const hrs=c.start?(Date.now()-new Date(c.start))/36e5:0, noMirror=(c.pending||[]).filter(p=>(p.left||0)>=c.apm);
+    mirror=hrs<12?`<div class="bs-l"><b>Mirror window:</b> ${Math.max(1,Math.round(12-hrs))}h left.${noMirror.length?` Still to hit their mirror: ${noMirror.slice(0,6).map(p=>pl(p.n)).join(", ")}${noMirror.length>6?` +${noMirror.length-6}`:""}.`:""}</div>`:""; }
+  $("path-note").textContent=`${pc}% to win`;
+  el.innerHTML=`<div class="pv2 ${cls}"><div class="pv2-h">${head}</div></div>
+    <div class="wg"><div class="wg-g">${row("Offense",off,uCh,uCls)}${row("Defense",def,tCh,tCls)}</div></div>
+    ${sw?`<div class="bs-s"><span class="label">Swing hits</span><span class="note" style="display:block;margin-bottom:2px">If they triple, our win chance goes up by</span>${sw}</div>`:""}
+    ${watch.length?`<div class="bs-l"><b>Bases still untested:</b> ${watch.map(b=>`${pl(b[1])} <span class="note">#${b[0]} TH${b[2]}</span>`).join(", ")}</div>`:""}${mirror}`;
+}
+/* ---------- war log: attacks or defenses, newest first, with the time each hit landed ---------- */
+window.feedTab=window.feedTab==="def"?"def":"atk";
+const feedShow=()=>["atk","def"].forEach(k=>{ $(k).hidden=window.feedTab!==k; });
 function renderFeed(c, link){
   const sec=$("atk-sec"), show=c&&c.state==="inWar"&&(c.feed||[]).length;
   if(!show){ sec.hidden=true; return; }
   sec.hidden=false;
-  const hitT=s=>s?" · "+new Date(s).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"}):"";
+  const hitT=s=>s?new Date(s).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"}).replace(" AM","a").replace(" PM","p"):"–";
   const row=x=>{ const [o,sd,an,ath,ap,dn,dth,dp,st,pc,nw,at]=x;
-    const att=sd==="us"?link(an):nm(an), def=sd==="us"?nm(dn):link(dn);
-    return sd==="us"?`<div class="pv-row"><span class="who">${att} <span class="note">#${ap} TH${esc(ath)}</span><small>→ #${dp} ${def} (TH${esc(dth)})${nw>0?` · +${nw} new ★`:" · no new stars"}${hitT(at)}</small></span><span class="gain ${st===3?"up":st===0?"bad":"warn"}">${"★".repeat(st)}${"☆".repeat(3-st)} ${pc}%</span></div>`:`<div class="pv-row"><span class="who">${def} <span class="note">#${dp} TH${esc(dth)}</span><small>hit by ${att} (#${ap} TH${esc(ath)})${nw>0?` · +${nw} new ★`:" · no new stars"}${hitT(at)}</small></span><span class="gain ${st===3?"up":st===0?"bad":"warn"}">${"★".repeat(st)}${"☆".repeat(3-st)} ${pc}%</span></div>`; };
+    const stars=`<span class="gain ${st===3?"up":st===0?"bad":"warn"}">${"★".repeat(st)}${"☆".repeat(3-st)} ${pc}%</span>`;
+    return sd==="us"?`<div class="fl-row"><span class="t num">${hitT(at)}</span><span class="who">${link(an)} <span class="note">#${ap} TH${esc(ath)}</span><small>→ #${dp} TH${esc(dth)}${nw>0?` · +${nw} new ★`:" · no new stars"}</small></span>${stars}</div>`
+      :`<div class="fl-row"><span class="t num">${hitT(at)}</span><span class="who">${link(dn)} <span class="note">#${dp} TH${esc(dth)}</span><small>hit by #${ap} TH${esc(ath)}${nw>0?` · +${nw} new ★`:" · no new stars"}</small></span>${stars}</div>`; };
   const ours=c.feed.filter(x=>x[1]==="us"), theirs=c.feed.filter(x=>x[1]==="them");
-  const block=(arr,empty)=>arr.length?`<div class="pv-list">${arr.slice(0,window.feedAll?999:10).map(row).join("")}</div>${arr.length>10?`<button type="button" class="more" data-feed-more style="margin-top:8px">${window.feedAll?"Show latest 10":`Load more (${arr.length-10} more)`}</button>`:""}`:`<div class="note">${empty}</div>`;
-  $("all").innerHTML=block(c.feed,"No attacks yet.").replace(/<div class="pv-row">/g,"<div class=\"pv-row\">"); $("atk").innerHTML=block(ours,"No attacks from us yet."); $("def").innerHTML=block(theirs,"Nobody has hit us yet.");
-  $("all").querySelectorAll(".pv-row").forEach((r,i)=>r.classList.add("s-"+c.feed[i][1]));
+  const block=(arr,empty)=>arr.length?`<div class="pv-list">${arr.slice(0,window.feedAll?999:10).map(row).join("")}</div>${arr.length>10?`<button type="button" class="more" data-feed-more style="margin-top:8px">${window.feedAll?"Show latest 10":`Show all ${arr.length}`}</button>`:""}`:`<div class="note">${empty}</div>`;
+  $("atk").innerHTML=block(ours,"No attacks from us yet."); $("def").innerHTML=block(theirs,"Nobody has hit us yet.");
   feedShow();
   document.querySelectorAll("#atk-sec .seg-b").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.seg===window.feedTab)));
   $("atk-note").textContent=`${ours.filter(x=>x[8]===3).length} triples · ${theirs.filter(x=>x[8]===3).length} allowed`;
@@ -868,12 +853,18 @@ function renderFeed(c, link){
 document.addEventListener("click",e=>{ const b=e.target.closest("#atk-sec .seg-b"); if(!b) return;
   window.feedTab=b.dataset.seg; feedShow();
   document.querySelectorAll("#atk-sec .seg-b").forEach(x=>x.setAttribute("aria-pressed",String(x===b))); });
+/* ---------- MVP leaderboard for this war: top 3 up front, everyone else a tap away ---------- */
 function renderTop(){
   const c=state.current, t=state.curTop||[], sec=$("top-sec");
   if(!c||c.state!=="inWar"||!t.length){ sec.hidden=true; return; }
   sec.hidden=false;
-  $("top").innerHTML=t.map(([n,th,rank,s,line],i)=>`<div class="pod p${i+1}"><span class="medal">${["🥇","🥈","🥉"][i]}</span><span class="tag">${i===0?"MVP so far":"#"+(i+1)}</span><span class="who">${pl(n)}</span><small>${esc(line)}</small></div>`).join("");
+  const row=([n,th,rank,s,line],i)=>`<div class="mvp"><span class="lb">${["🥇","🥈","🥉"][i]||"#"+(i+1)}</span><span class="who">${pl(n)} <span class="note">#${rank} TH${esc(th)}</span><small>${esc(line)}</small></span><span class="sc num">${s}★</span></div>`;
+  $("top").innerHTML=t.slice(0,3).map(row).join("");
+  $("top-rest").hidden=t.length<=3;
+  $("top-rest").innerHTML=t.length>3?`<summary>Everyone (${t.length})</summary><div class="mvp-list mvp-sm">${t.slice(3).map((r,i)=>row(r,i+3)).join("")}</div>`:"";
 }
+const numList=(arr,cell)=>`<ol class="nlist" style="grid-template-rows:repeat(${Math.max(1,Math.ceil(arr.length/2))},auto);grid-auto-flow:column">${arr.map((x,i)=>`<li><span class="k">${i+1}</span>${cell(x)}</li>`).join("")}</ol>`;
+
 function renderScout(){
   const sc=state.scout, nx=state.next, sec=$("scout-sec"), el=$("scout");
   if(sc){
@@ -893,8 +884,9 @@ function renderScout(){
     sec.hidden=false; $("scout-title").textContent="Next war"; $("scout-note").textContent=`R${nx.round} vs ${nx.opp}`;
     const n=Math.min(nx.usN,nx.oppN);
     const basis=n?`Average stars per war this CWL (${n} finished war${n===1?"":"s"} each). Rough until a few more rounds are done.`:`No finished CWL wars yet to project from.`;
-    const lu=`<div class="sc-card"><div class="label">Our lineup for Round ${nx.round} (${(nx.lineup||[]).length})</div><div class="chips">${(nx.lineup||[]).map(([n,th,miss])=>`<span class="chip ${miss?'miss':''}"><span>${pl(n)}</span><small>TH${esc(th)}${miss?` · missed ${miss}`:''}</small></span>`).join("")}</div>
-      <div class="note">Red = missed an attack earlier this CWL. Full league view is on the CWL Tracker.</div></div>`;
+    const L=nx.lineup||[], lmiss=L.filter(x=>x[2]).length;
+    const lu=`<details class="sc-card lu"${window.luOpen?" open":""}><summary><span class="label">Our lineup for Round ${nx.round} (${L.length})</span><span class="note">${lmiss?lmiss+" missed a hit earlier":"map order"}</span></summary>
+      ${numList(L,([n,th,miss])=>`<span class="n${miss?" bad":""}">${pl(n)}</span><small>TH${esc(th)}${miss?" ✕"+miss:""}</small>`)}</details>`;
     el.innerHTML=projCard(nx,nx.opp,basis)+thBlock(nx.usTH,nx.oppTH,nx.opp)+lu;
     return;
   }
@@ -913,12 +905,12 @@ function renderLineup(ps){
   }
   const ranked=ps.filter(p=>p.wars>=MIN_WARS).sort(cmpMVP);
   const notYet=ps.filter(p=>p.wars<MIN_WARS);
-  const chip=(p,k)=>`<span class="chip rank"><small>${k+1}</small><span>${pl(p.n)}</span><small>${p.off==null?"–":p.off.toFixed(2)+"★"}</small></span>`;
   const inn=ranked.slice(0,size), bub=ranked.slice(size,size+BUBBLE_SIZE), rest=ranked.slice(size+BUBBLE_SIZE);
-  $("lineup-note").textContent=`${size}v${size} · ranked like MVP · ${n} wars`;
-  el.innerHTML=`<div class="tier"><h3>In (${inn.length})</h3><div class="chips">${inn.map(chip).join("")}</div></div>
-    ${bub.length?`<div class="tier bubble"><h3>On the bubble (${bub.length})</h3><div class="chips">${bub.map((p,k)=>chip(p,k+size)).join("")}</div></div>`:""}
-    ${rest.length||notYet.length?`<div class="tier"><h3>Earn your spot</h3><div class="chips">${rest.map((p,k)=>chip(p,k+size+BUBBLE_SIZE)).join("")}${notYet.map(p=>`<span class="chip dim"><span>${pl(p.n)}</span><small>needs ${MIN_WARS-p.wars} more</small></span>`).join("")}</div></div>`:""}`;
+  const cell=p=>`<span class="n">${pl(p.n)}</span><small>${p.off==null?"–":p.off.toFixed(2)+"★"}</small>`;
+  $("lineup-note").textContent=`${size}v${size} · ${n} wars`;
+  el.innerHTML=`<div class="tier"><h3>In (${inn.length})</h3>${numList(inn,cell)}</div>
+    ${bub.length?`<div class="tier bubble"><h3>On the bubble</h3>${numList(bub,cell).replace(/<span class="k">(\d+)/g,(m,d)=>`<span class="k">${+d+size}`)}</div>`:""}
+    ${rest.length||notYet.length?`<details class="more-stats"><summary>Everyone else (${rest.length+notYet.length})</summary><div class="chips">${rest.map(p=>`<span class="chip"><span>${pl(p.n)}</span></span>`).join("")}${notYet.map(p=>`<span class="chip dim"><span>${pl(p.n)}</span><small>needs ${MIN_WARS-p.wars} more</small></span>`).join("")}</div></details>`:""}`;
 }
 function render(){
   { const hn=document.getElementById("hold-note"), nr=state.needsReview||[];
@@ -1103,4 +1095,31 @@ details.more-stats>summary::-webkit-details-marker{display:none}
 details.more-stats>summary::after{content:" ▾"}details.more-stats[open]>summary::after{content:" ▴"}
 details.more-stats[open]{display:grid;gap:6px}
 </style>
+<style>
+/* ===== Nov 10: shout-outs, path to victory chips, war log times, compact MVP + numbered lineups ===== */
+.shout{display:grid;gap:3px;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13.5px}
+.shout .label{font-size:9px}
+.mvp-sm .mvp{padding:6px 10px;gap:8px;grid-template-columns:34px minmax(0,1fr) auto}
+.mvp-sm .mvp .who{font-size:14px}.mvp-sm .mvp .who small{font-size:11.5px}
+.mvp-sm .mvp .sc{font-family:var(--f-mono);font-weight:600;font-size:14px}
+#top-rest{margin-top:6px}
+.chip-s{display:inline-block;font-family:var(--f-mono);font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.chip-s.good{color:var(--up);border-color:var(--up)}.chip-s.bad{color:var(--down);border-color:var(--down)}.chip-s.mid{color:var(--live);border-color:var(--live)}
+.fl-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 10px;border-top:1px solid var(--line)}
+.fl-row:first-child{border-top:0}
+.fl-row .t{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.fl-row .who{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.fl-row .who small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.fl-row .gain{font-family:var(--f-mono);font-size:12px;white-space:nowrap}
+ol.nlist{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:10px;row-gap:0}
+ol.nlist li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:5px;align-items:baseline;padding:3px 0;border-bottom:1px solid var(--line);min-width:0;font-size:13px}
+ol.nlist .k{font-family:var(--f-mono);font-size:10.5px;color:var(--faint);text-align:right}
+ol.nlist .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+ol.nlist .n.bad a{color:var(--down)}
+ol.nlist small{font-family:var(--f-mono);font-size:10px;color:var(--muted);white-space:nowrap}
+details.lu>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+details.lu>summary::-webkit-details-marker{display:none}
+details.lu>summary .label::after{content:" ▾"}details.lu[open]>summary .label::after{content:" ▴"}
+</style>
+<script>document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("lu")) window.luOpen=e.target.open; },true);</script>
 </body></html>

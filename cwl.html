@@ -501,7 +501,7 @@ details.bd-more[open]{display:grid;gap:8px}
   </header>
 
 
-  <p class="rally" id="rally" hidden>Get ur attacks in 🫡 <b>Everyone attacks = we promote.</b></p>
+  <p class="rally" id="rally" hidden></p>
 
   <div class="offseason" id="offseason" hidden></div>
 
@@ -519,20 +519,10 @@ details.bd-more[open]{display:grid;gap:8px}
   </section>
 
   <section id="pv-sec" hidden>
-    <div class="head"><h2>Path to victory</h2><span class="note" id="pv-note"></span></div>
-    <div class="label" id="pv-war-l" hidden>This war</div>
-    <div id="pv-war" style="display:grid;gap:8px"></div>
-    <div class="label" style="margin-top:4px">Promotion path</div>
+    <div class="head"><h2>Path to promotion</h2><span class="note" id="pv-note"></span></div>
     <div id="pv-promo" style="display:grid;gap:8px"></div>
   </section>
 
-  <section id="atk-sec" hidden>
-    <div class="head"><h2>War log</h2><span class="note" id="atk-note"></span></div>
-    <div class="seg" role="group" aria-label="War log view"><button type="button" class="seg-b" data-seg="atk" aria-pressed="true">Attacks</button><button type="button" class="seg-b" data-seg="def" aria-pressed="false">Defenses</button></div>
-    <div id="all" hidden></div>
-    <div id="atk"></div>
-    <div id="def" hidden></div>
-  </section>
 
   <section id="stand-sec" hidden>
     <div class="head"><h2>Standings</h2><span class="note">top 2 promote</span></div>
@@ -549,13 +539,13 @@ details.bd-more[open]{display:grid;gap:8px}
 
   <section id="lb-sec" hidden>
     <div class="head"><h2>Clan leaderboard</h2><span class="note" id="lb-note"></span></div>
-    <div class="podium" id="podium"></div>
+    <div class="mvp-list mvp-sm" id="podium" style="margin-bottom:8px"></div>
     <div class="tbl-wrap"><table>
-      <thead><tr><th>#</th><th>Player</th><th>Stars</th><th>Gave/war</th><th>Gave</th><th>MVP</th></tr></thead>
+      <thead><tr><th>#</th><th>Player</th><th>Stars</th><th>Avg gave</th><th>Gave</th><th>MVP</th></tr></thead>
       <tbody id="lb"></tbody>
     </table></div>
     <button class="more" id="lb-more" type="button" hidden></button>
-    <div class="note">Ranked by stars gained (each attack missed by war's end = −1★), then fewest stars given up. Ties go to attack %, then % given up, then tougher targets. Stars /hits. Gave = stars your base gave up.</div>
+    <div class="note">Ranked by stars (each missed attack −1★), then stars given up, then attack %, then % given up, then tougher bases. Gave = stars your base gave up.</div>
   </section>
 
   <section id="rounds-sec" data-collapsed="1" hidden>
@@ -574,7 +564,7 @@ details.bd-more[open]{display:grid;gap:8px}
 </div>
 
 <script>
-const SNAPSHOT = {"me":"Den of Thieves","league":"Master League I","offSeason":true,"season":"2026-11-01","groupState":"ended","roster":30,"totalRounds":7,"promote":2,"demote":2,"clans":["BRIGHT FUTURE","FORTUNA","03’ Banshee","Valar Murghulis","Den of Thieves","ملوک الیل","العشرة مدرسة 2","HAK YOL İSLAM"],"myWar":null,"dest":{"BRIGHT FUTURE":19092,"FORTUNA":17963,"03’ Banshee":18439,"Valar Murghulis":19595,"Den of Thieves":19630,"ملوک الیل":17487,"العشرة مدرسة 2":18732,"HAK YOL İSLAM":19236},"rounds":[{"n":1,"wars":[{"a":"FORTUNA","b":"العشرة مدرسة 2","aStars":62,"bStars":82,"aAtk":30,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":81.27,"bDestPct":92.97},{"a":"03’ Banshee","b":"Valar Murghulis","aStars":79,"bStars":68,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":91.9,"bDestPct":79.9},{"a":"BRIGHT FUTURE","b":"Den of Thieves","aStars":78,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":93.63,"bDestPct":98.27},{"a":"ملوک الیل","b":"HAK YOL İSLAM","aStars":69,"bStars":65,"aAtk":26,"bAtk":27,"status":"final","winner":"ملوک الیل","aDestPct":80.2,"bDestPct":81.63}]},{"n":2,"wars":[{"a":"FORTUNA","b":"ملوک الیل","aStars":74,"bStars":75,"aAtk":30,"bAtk":28,"status":"final","winner":"ملوک الیل","aDestPct":90.0,"bDestPct":85.0},{"a":"BRIGHT FUTURE","b":"Valar Murghulis","aStars":73,"bStars":82,"aAtk":29,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":85.9,"bDestPct":96.77},{"a":"Den of Thieves","b":"HAK YOL İSLAM","aStars":77,"bStars":76,"aAtk":29,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":91.6,"bDestPct":91.8},{"a":"03’ Banshee","b":"العشرة مدرسة 2","aStars":70,"bStars":71,"aAtk":30,"bAtk":30,"status":"final","winner":"العشرة مدرسة 2","aDestPct":91.57,"bDestPct":91.03}]},{"n":3,"wars":[{"a":"FORTUNA","b":"HAK YOL İSLAM","aStars":71,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"HAK YOL İSLAM","aDestPct":88.43,"bDestPct":96.73},{"a":"03’ Banshee","b":"Den of Thieves","aStars":77,"bStars":66,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":90.27,"bDestPct":84.73},{"a":"BRIGHT FUTURE","b":"ملوک الیل","aStars":76,"bStars":74,"aAtk":30,"bAtk":28,"status":"final","winner":"BRIGHT FUTURE","aDestPct":91.9,"bDestPct":88.8},{"a":"Valar Murghulis","b":"العشرة مدرسة 2","aStars":71,"bStars":76,"aAtk":29,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":86.07,"bDestPct":93.43}]},{"n":4,"wars":[{"a":"FORTUNA","b":"Valar Murghulis","aStars":72,"bStars":87,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":86.8,"bDestPct":99.17},{"a":"03’ Banshee","b":"ملوک الیل","aStars":76,"bStars":62,"aAtk":29,"bAtk":26,"status":"final","winner":"03’ Banshee","aDestPct":89.63,"bDestPct":74.83},{"a":"Den of Thieves","b":"العشرة مدرسة 2","aStars":71,"bStars":70,"aAtk":29,"bAtk":26,"status":"final","winner":"Den of Thieves","aDestPct":88.93,"bDestPct":83.77},{"a":"BRIGHT FUTURE","b":"HAK YOL İSLAM","aStars":76,"bStars":85,"aAtk":30,"bAtk":30,"status":"final","winner":"HAK YOL İSLAM","aDestPct":90.23,"bDestPct":97.63}]},{"n":5,"wars":[{"a":"FORTUNA","b":"Den of Thieves","aStars":69,"bStars":87,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":90.17,"bDestPct":99.33},{"a":"BRIGHT FUTURE","b":"03’ Banshee","aStars":72,"bStars":78,"aAtk":30,"bAtk":28,"status":"final","winner":"03’ Banshee","aDestPct":86.97,"bDestPct":89.4},{"a":"Valar Murghulis","b":"ملوک الیل","aStars":82,"bStars":73,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":97.33,"bDestPct":91.6},{"a":"العشرة مدرسة 2","b":"HAK YOL İSLAM","aStars":73,"bStars":69,"aAtk":27,"bAtk":30,"status":"final","winner":"العشرة مدرسة 2","aDestPct":85.83,"bDestPct":90.8}]},{"n":6,"wars":[{"a":"BRIGHT FUTURE","b":"FORTUNA","aStars":81,"bStars":71,"aAtk":30,"bAtk":27,"status":"final","winner":"BRIGHT FUTURE","aDestPct":96.4,"bDestPct":85.4},{"a":"Valar Murghulis","b":"Den of Thieves","aStars":79,"bStars":78,"aAtk":30,"bAtk":29,"status":"final","winner":"Valar Murghulis","aDestPct":96.8,"bDestPct":94.3},{"a":"ملوک الیل","b":"العشرة مدرسة 2","aStars":70,"bStars":75,"aAtk":30,"bAtk":26,"status":"final","winner":"العشرة مدرسة 2","aDestPct":85.83,"bDestPct":84.8},{"a":"03’ Banshee","b":"HAK YOL İSLAM","aStars":63,"bStars":70,"aAtk":26,"bAtk":29,"status":"final","winner":"HAK YOL İSLAM","aDestPct":78.53,"bDestPct":89.27}]},{"n":7,"wars":[{"a":"FORTUNA","b":"03’ Banshee","aStars":56,"bStars":67,"aAtk":27,"bAtk":26,"status":"final","winner":"03’ Banshee","aDestPct":76.7,"bDestPct":83.33},{"a":"Den of Thieves","b":"ملوک الیل","aStars":82,"bStars":58,"aAtk":30,"bAtk":25,"status":"final","winner":"Den of Thieves","aDestPct":97.17,"bDestPct":76.63},{"a":"BRIGHT FUTURE","b":"العشرة مدرسة 2","aStars":75,"bStars":82,"aAtk":30,"bAtk":28,"status":"final","winner":"العشرة مدرسة 2","aDestPct":91.37,"bDestPct":92.57},{"a":"Valar Murghulis","b":"HAK YOL İSLAM","aStars":78,"bStars":76,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":97.13,"bDestPct":93.33}]}],"updated":"Nov 10, 2:25 PM CT","updatedISO":"2026-11-10T20:25:02+00:00","source":"api","odds":null,"status":{"api":"ok","checked":"2026-11-10T20:25:05+00:00","parts":{"cwl":"ok","war":"ok"}},"board":{"season":"2026-11","wars":7,"cols":["n","th","wars","att","s","tri","avgD","miss","mvps","given","net"],"rows":[["BigDog",18,7,7,21,7,100.0,0,0,2.1,21],["AlreadyGotTwo",18,7,7,21,7,100.0,0,0,2.2,21],["亗 Khnum-Atum~ra",18,7,7,21,7,100.0,0,0,2.3,21],["Fatal Justice",18,7,7,21,7,100.0,0,0,2.6,21],["Lethal Formula",18,7,7,21,7,100.0,0,0,2.6,21],["KingTrents⚡️",18,7,7,21,7,100.0,0,0,2.7,21],["Violent Desire",17,7,7,21,7,100.0,0,0,2.9,21],["Archie",18,7,7,20,6,98.4,0,2,1.9,20],["Why Not!",17,7,7,20,6,97.4,0,0,2.5,20],["mr razzi",18,7,7,20,6,99.6,0,0,2.7,20],["King_Savage_999",18,7,7,19,5,99.0,0,1,1.6,19],["Alf",17,7,7,19,5,98.6,0,0,2.7,19],["PsuedoVirus",18,7,7,19,5,96.4,0,0,2.9,19],["BT 2",17,7,7,19,5,94.1,0,0,2.9,19],["Iron Buff",18,7,7,18,5,94.7,0,1,1.6,18],["丂卄么几ズ卂尺",18,7,7,18,5,91.0,0,1,2.1,18],["Keith1972",18,7,7,18,4,95.4,0,0,2.6,18],["niczll",18,7,7,18,5,94.1,0,1,2.6,18],["BIKE-Ñ=UFC+24",18,7,7,18,4,90.9,0,0,2.7,18],["Hateful",18,7,7,18,4,96.7,0,0,2.8,18],["huskernsooner",18,7,7,17,3,82.0,0,0,2.5,17],["FRE@K$TONE",17,7,7,17,4,96.4,0,0,2.7,17],["Hammad Khan",18,7,7,17,4,95.7,0,1,2.8,17],["adi",18,7,7,17,4,95.9,0,0,2.9,17],["DestroX",18,7,6,17,5,99.8,1,0,2.6,16],["greenland",16,7,7,16,3,86.0,0,0,3.0,16],["Tribe of Judah",17,7,7,15,2,91.0,0,0,2.5,15],["BT",18,7,7,15,2,87.7,0,0,2.7,15],["Nikesh",17,7,6,13,3,86.5,1,0,2.8,12],["Archie02",17,4,4,9,1,88.8,0,0,3.0,9],["shield",18,3,1,1,0,89.0,2,0,3.0,-1]]},"cur":{"kind":"regular","round":null,"state":"preparation","start":"2026-11-10T22:10:08+00:00","end":"2026-11-11T22:10:08+00:00"},"curFull":{"id":"R-20261109T231008.000Z","kind":"regular","round":null,"state":"preparation","opp":"大唐游侠","size":10,"apm":2,"us":{"s":0,"d":0.0,"a":0},"them":{"n":"大唐游侠","tag":"#2J0GQQCPP","s":0,"d":0.0,"a":0},"end":"2026-11-11T22:10:08+00:00","start":"2026-11-10T22:10:08+00:00","pending":[],"feed":[],"openBases":[],"ourBases":[],"oppLeft":[],"usAvgAtk":null,"themAvgAtk":null,"attacksLeft":null,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwlRates":{},"curNext":{"kind":"regular","round":null,"start":"2026-11-10T22:10:08+00:00","opp":"大唐游侠"}};
+const SNAPSHOT = {"me":"Den of Thieves","league":"Master League I","offSeason":true,"season":"2026-11-01","groupState":"ended","roster":30,"totalRounds":7,"promote":2,"demote":2,"clans":["BRIGHT FUTURE","FORTUNA","03’ Banshee","Valar Murghulis","Den of Thieves","ملوک الیل","العشرة مدرسة 2","HAK YOL İSLAM"],"myWar":null,"dest":{"BRIGHT FUTURE":19092,"FORTUNA":17963,"03’ Banshee":18439,"Valar Murghulis":19595,"Den of Thieves":19630,"ملوک الیل":17487,"العشرة مدرسة 2":18732,"HAK YOL İSLAM":19236},"rounds":[{"n":1,"wars":[{"a":"FORTUNA","b":"العشرة مدرسة 2","aStars":62,"bStars":82,"aAtk":30,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":81.27,"bDestPct":92.97},{"a":"03’ Banshee","b":"Valar Murghulis","aStars":79,"bStars":68,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":91.9,"bDestPct":79.9},{"a":"BRIGHT FUTURE","b":"Den of Thieves","aStars":78,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":93.63,"bDestPct":98.27},{"a":"ملوک الیل","b":"HAK YOL İSLAM","aStars":69,"bStars":65,"aAtk":26,"bAtk":27,"status":"final","winner":"ملوک الیل","aDestPct":80.2,"bDestPct":81.63}]},{"n":2,"wars":[{"a":"FORTUNA","b":"ملوک الیل","aStars":74,"bStars":75,"aAtk":30,"bAtk":28,"status":"final","winner":"ملوک الیل","aDestPct":90.0,"bDestPct":85.0},{"a":"BRIGHT FUTURE","b":"Valar Murghulis","aStars":73,"bStars":82,"aAtk":29,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":85.9,"bDestPct":96.77},{"a":"Den of Thieves","b":"HAK YOL İSLAM","aStars":77,"bStars":76,"aAtk":29,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":91.6,"bDestPct":91.8},{"a":"03’ Banshee","b":"العشرة مدرسة 2","aStars":70,"bStars":71,"aAtk":30,"bAtk":30,"status":"final","winner":"العشرة مدرسة 2","aDestPct":91.57,"bDestPct":91.03}]},{"n":3,"wars":[{"a":"FORTUNA","b":"HAK YOL İSLAM","aStars":71,"bStars":84,"aAtk":30,"bAtk":30,"status":"final","winner":"HAK YOL İSLAM","aDestPct":88.43,"bDestPct":96.73},{"a":"03’ Banshee","b":"Den of Thieves","aStars":77,"bStars":66,"aAtk":29,"bAtk":29,"status":"final","winner":"03’ Banshee","aDestPct":90.27,"bDestPct":84.73},{"a":"BRIGHT FUTURE","b":"ملوک الیل","aStars":76,"bStars":74,"aAtk":30,"bAtk":28,"status":"final","winner":"BRIGHT FUTURE","aDestPct":91.9,"bDestPct":88.8},{"a":"Valar Murghulis","b":"العشرة مدرسة 2","aStars":71,"bStars":76,"aAtk":29,"bAtk":29,"status":"final","winner":"العشرة مدرسة 2","aDestPct":86.07,"bDestPct":93.43}]},{"n":4,"wars":[{"a":"FORTUNA","b":"Valar Murghulis","aStars":72,"bStars":87,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":86.8,"bDestPct":99.17},{"a":"03’ Banshee","b":"ملوک الیل","aStars":76,"bStars":62,"aAtk":29,"bAtk":26,"status":"final","winner":"03’ Banshee","aDestPct":89.63,"bDestPct":74.83},{"a":"Den of Thieves","b":"العشرة مدرسة 2","aStars":71,"bStars":70,"aAtk":29,"bAtk":26,"status":"final","winner":"Den of Thieves","aDestPct":88.93,"bDestPct":83.77},{"a":"BRIGHT FUTURE","b":"HAK YOL İSLAM","aStars":76,"bStars":85,"aAtk":30,"bAtk":30,"status":"final","winner":"HAK YOL İSLAM","aDestPct":90.23,"bDestPct":97.63}]},{"n":5,"wars":[{"a":"FORTUNA","b":"Den of Thieves","aStars":69,"bStars":87,"aAtk":30,"bAtk":30,"status":"final","winner":"Den of Thieves","aDestPct":90.17,"bDestPct":99.33},{"a":"BRIGHT FUTURE","b":"03’ Banshee","aStars":72,"bStars":78,"aAtk":30,"bAtk":28,"status":"final","winner":"03’ Banshee","aDestPct":86.97,"bDestPct":89.4},{"a":"Valar Murghulis","b":"ملوک الیل","aStars":82,"bStars":73,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":97.33,"bDestPct":91.6},{"a":"العشرة مدرسة 2","b":"HAK YOL İSLAM","aStars":73,"bStars":69,"aAtk":27,"bAtk":30,"status":"final","winner":"العشرة مدرسة 2","aDestPct":85.83,"bDestPct":90.8}]},{"n":6,"wars":[{"a":"BRIGHT FUTURE","b":"FORTUNA","aStars":81,"bStars":71,"aAtk":30,"bAtk":27,"status":"final","winner":"BRIGHT FUTURE","aDestPct":96.4,"bDestPct":85.4},{"a":"Valar Murghulis","b":"Den of Thieves","aStars":79,"bStars":78,"aAtk":30,"bAtk":29,"status":"final","winner":"Valar Murghulis","aDestPct":96.8,"bDestPct":94.3},{"a":"ملوک الیل","b":"العشرة مدرسة 2","aStars":70,"bStars":75,"aAtk":30,"bAtk":26,"status":"final","winner":"العشرة مدرسة 2","aDestPct":85.83,"bDestPct":84.8},{"a":"03’ Banshee","b":"HAK YOL İSLAM","aStars":63,"bStars":70,"aAtk":26,"bAtk":29,"status":"final","winner":"HAK YOL İSLAM","aDestPct":78.53,"bDestPct":89.27}]},{"n":7,"wars":[{"a":"FORTUNA","b":"03’ Banshee","aStars":56,"bStars":67,"aAtk":27,"bAtk":26,"status":"final","winner":"03’ Banshee","aDestPct":76.7,"bDestPct":83.33},{"a":"Den of Thieves","b":"ملوک الیل","aStars":82,"bStars":58,"aAtk":30,"bAtk":25,"status":"final","winner":"Den of Thieves","aDestPct":97.17,"bDestPct":76.63},{"a":"BRIGHT FUTURE","b":"العشرة مدرسة 2","aStars":75,"bStars":82,"aAtk":30,"bAtk":28,"status":"final","winner":"العشرة مدرسة 2","aDestPct":91.37,"bDestPct":92.57},{"a":"Valar Murghulis","b":"HAK YOL İSLAM","aStars":78,"bStars":76,"aAtk":30,"bAtk":30,"status":"final","winner":"Valar Murghulis","aDestPct":97.13,"bDestPct":93.33}]}],"updated":"Nov 10, 2:35 PM CT","updatedISO":"2026-11-10T20:35:02+00:00","source":"api","odds":null,"status":{"api":"ok","checked":"2026-11-10T20:35:04+00:00","parts":{"cwl":"ok","war":"ok"}},"board":{"season":"2026-11","wars":7,"cols":["n","th","wars","att","s","tri","avgD","miss","mvps","given","net"],"rows":[["BigDog",18,7,7,21,7,100.0,0,0,2.1,21],["AlreadyGotTwo",18,7,7,21,7,100.0,0,0,2.2,21],["亗 Khnum-Atum~ra",18,7,7,21,7,100.0,0,0,2.3,21],["Fatal Justice",18,7,7,21,7,100.0,0,0,2.6,21],["Lethal Formula",18,7,7,21,7,100.0,0,0,2.6,21],["KingTrents⚡️",18,7,7,21,7,100.0,0,0,2.7,21],["Violent Desire",17,7,7,21,7,100.0,0,0,2.9,21],["Archie",18,7,7,20,6,98.4,0,2,1.9,20],["Why Not!",17,7,7,20,6,97.4,0,0,2.5,20],["mr razzi",18,7,7,20,6,99.6,0,0,2.7,20],["King_Savage_999",18,7,7,19,5,99.0,0,1,1.6,19],["Alf",17,7,7,19,5,98.6,0,0,2.7,19],["PsuedoVirus",18,7,7,19,5,96.4,0,0,2.9,19],["BT 2",17,7,7,19,5,94.1,0,0,2.9,19],["Iron Buff",18,7,7,18,5,94.7,0,1,1.6,18],["丂卄么几ズ卂尺",18,7,7,18,5,91.0,0,1,2.1,18],["Keith1972",18,7,7,18,4,95.4,0,0,2.6,18],["niczll",18,7,7,18,5,94.1,0,1,2.6,18],["BIKE-Ñ=UFC+24",18,7,7,18,4,90.9,0,0,2.7,18],["Hateful",18,7,7,18,4,96.7,0,0,2.8,18],["huskernsooner",18,7,7,17,3,82.0,0,0,2.5,17],["FRE@K$TONE",17,7,7,17,4,96.4,0,0,2.7,17],["Hammad Khan",18,7,7,17,4,95.7,0,1,2.8,17],["adi",18,7,7,17,4,95.9,0,0,2.9,17],["DestroX",18,7,6,17,5,99.8,1,0,2.6,16],["greenland",16,7,7,16,3,86.0,0,0,3.0,16],["Tribe of Judah",17,7,7,15,2,91.0,0,0,2.5,15],["BT",18,7,7,15,2,87.7,0,0,2.7,15],["Nikesh",17,7,6,13,3,86.5,1,0,2.8,12],["Archie02",17,4,4,9,1,88.8,0,0,3.0,9],["shield",18,3,1,1,0,89.0,2,0,3.0,-1]]},"cur":{"kind":"regular","round":null,"state":"preparation","start":"2026-11-10T22:10:08+00:00","end":"2026-11-11T22:10:08+00:00"},"curFull":{"id":"R-20261109T231008.000Z","kind":"regular","round":null,"state":"preparation","opp":"大唐游侠","size":10,"apm":2,"us":{"s":0,"d":0.0,"a":0},"them":{"n":"大唐游侠","tag":"#2J0GQQCPP","s":0,"d":0.0,"a":0},"end":"2026-11-11T22:10:08+00:00","start":"2026-11-10T22:10:08+00:00","pending":[],"feed":[],"openBases":[],"ourBases":[],"oppLeft":[],"usAvgAtk":null,"themAvgAtk":null,"attacksLeft":null,"usTH":{"18":9,"16":1},"oppTH":{"18":9,"15":1}},"cwlRates":{},"curNext":{"kind":"regular","round":null,"start":"2026-11-10T22:10:08+00:00","opp":"大唐游侠"}};
 let ME = SNAPSHOT.me || "Den of Thieves";
 let state = structuredClone(SNAPSHOT), db = null, docRef = null, editing = null, saving = false, canWrite = false;
 const $ = id => document.getElementById(id);
@@ -640,11 +630,13 @@ function render(){
   // strip
   const cushion = me.pos<=up ? me.total - third.total : me.total - second.total;
   const finalsDone = Math.max(0,...(s.rounds||[]).map(r=>(r.wars||[]).every(w=>w.status==="final")&&r.wars.length?r.n:0));
-  $("strip").hidden=false;
-  $("strip").innerHTML = `
-    <div class="kpi ${me.pos<=up?'good':me.pos>n-down?'bad':''}"><span class="label">Position</span><b class="num">${me.pos} / ${n}</b></div>
-    ${(s.odds&&s.odds.promo&&s.odds.promo[ME]!=null)?`<div class="kpi ${s.odds.promo[ME]>=50?'good':s.odds.promo[ME]<15?'bad':''}"><span class="label">Promotion chance</span><b class="num">${s.odds.promo[ME]>0&&s.odds.promo[ME]<1?'<1':Math.round(s.odds.promo[ME])}%</b></div>`:`<div class="kpi ${cushion>=0?'good':'bad'}"><span class="label">${me.pos<=up?'Promo cushion':'To promo spot'}</span><b class="num">${cushion>=0?'+':''}${cushion}</b></div>`}
-    <div class="kpi"><span class="label">Rounds done</span><b class="num">${finalsDone} / ${s.totalRounds||7}</b></div>`;
+  $("strip").hidden=false; $("strip").className="";
+  const pc=s.odds&&s.odds.promo&&s.odds.promo[ME]!=null?s.odds.promo[ME]:null, cur=s.curFull;
+  const link=cur&&cur.kind==="cwl"&&(cur.state==="inWar"||cur.state==="preparation")?`<a class="gl-link" href="index.html">R${cur.round} ${cur.state==="inWar"?"live":"prep"} → Current War</a>`:`<a class="gl-link" href="index.html">Current War →</a>`;
+  $("strip").innerHTML=`<div id="cwl-top"><div class="gl-h"><span class="label">${s.offSeason?"Last season":"At a glance"}</span>${link}</div><div class="mini3">
+    <div><span class="label">Position</span><b class="num">${me.pos} / ${n}</b><small class="${me.pos<=up?"up":me.pos>n-down?"bad":""}">${s.offSeason?(me.pos<=up?"promoted":me.pos>n-down?"demoted":"stayed"):(me.pos<=up?"promotion spot":me.pos>n-down?"demotion zone":"mid-table")}</small></div>
+    ${pc!=null?`<div><span class="label">Promotion</span><b class="num">${pc>0&&pc<1?"<1":Math.round(pc)}%</b><small>10,000 sims</small></div>`:`<div><span class="label">${me.pos<=up?"Cushion":"To promo"}</span><b class="num">${cushion>=0?"+":""}${cushion}★</b><small>vs ${esc(me.pos<=up?(third?third.clan:""):(second?second.clan:""))}</small></div>`}
+    <div><span class="label">Rounds</span><b class="num">${finalsDone} / ${s.totalRounds||7}</b><small>${me.w}–${me.l} W–L</small></div></div></div>`;
 
   renderTodo();
   if(s.league) $("eb-league").textContent=s.league;
@@ -673,8 +665,7 @@ function render(){
     const pips=Array.from({length:roster},(_,k)=>`<i class="${k<ma?'on':''}"></i>`).join("");
     $("live").innerHTML = `<div class="war-h"><div><div class="label">vs ${nm(opp)}</div><div class="score num">${ms}<span>–</span>${os}</div></div>${dA!=null&&dB!=null?`<span class="note num">${(+dA).toFixed(1)}% vs ${(+dB).toFixed(1)}%</span>`:""}</div>
       <div class="mini3"><div><span class="label">Our attacks</span><b class="num">${ma}/${roster}</b><small>${ma?(ms/ma).toFixed(2)+"★ avg":"–"}</small></div><div><span class="label">Their attacks</span><b class="num">${oa}/${roster}</b><small>${oa?(os/oa).toFixed(2)+"★ avg":"–"}</small></div><div><span class="label">Projected</span><b class="num">${Math.round(mp)}–${Math.round(op)}</b>${callP(_P)}</div></div>
-    <details class="bd-more"${window.bdOpen?" open":""}><summary>Who's left${pend.length?" ("+pend.length+")":""}</summary><div class="pips" style="--n:${roster}" role="img" aria-label="${ma} of ${roster} attacks used">${pips}</div>
-      ${pend.length?`<div class="label">Still to attack (${pend.length})</div><div class="chips">${(window.pendAll?pend:pend.slice(0,5)).map(p=>`<span class="chip"><span>${lbLink(p.n)}</span><small>TH${esc(p.th)}</small></span>`).join("")}${pend.length>5?`<button type="button" class="chip more-chip" data-pend-toggle aria-expanded="${!!window.pendAll}">${window.pendAll?"show less":"See all "+pend.length}</button>`:""}</div>`:(ma>=roster?`<div class="good" style="font-weight:600">Everyone's in 🫡</div>`:"")}</details>`;
+    <a class="gl-link" href="index.html" style="display:block;margin-top:8px">Path to victory, shout-outs and war log on Current War →</a>`;
   }
 
   // standings
@@ -693,7 +684,6 @@ function render(){
   // clan leaderboard (this CWL)
   renderBoard();
   renderPath();
-  renderFeed(state.curFull&&state.curFull.kind==="cwl"?state.curFull:null, lbLink);
 
   // rounds
   $("rounds-sec").hidden=false;
@@ -931,12 +921,24 @@ function pvPromo(s){
     return `<div class="pv-row ${rv?"pv-key":""}"><span class="k">R${x.n}</span><span class="who">vs ${nm(x.opp)}<small>${x.live?"live now · ":""}${o.pos?ord(o.pos)+" now, projected "+ord(o.projPos):""} · ${esc(whyL)}</small></span><span class="gain ${/behind|must win/.test(tag)?"bad":/tough|coin/.test(tag)?"warn":"up"}">${tag}</span></div>`; }).join("");
   return `<div class="pv-head ${cls}">${head}</div>${rowsH?`<div class="pv-list">${rowsH}</div><div class="note">Projections use each clan's stars per attack this season and live pace. Rival = projected top ${up+1} or the clan we're racing.</div>`:""}`;
 }
+/* ---------- other wars that matter: rivals playing each other, or a rival we need someone to beat ---------- */
+function rivalWars(s){
+  const {rows}=compute(s), up=s.promote??2, me=rows.find(r=>r.clan===ME); if(!me) return "";
+  const rival=c=>{ const r=rows.find(x=>x.clan===c); return r&&r.clan!==ME&&(r.projPos<=up+1||Math.abs(r.proj-me.proj)<=25); };
+  const pos=c=>{ const r=rows.find(x=>x.clan===c); return r?r.pos:"–"; };
+  const out=[];
+  (s.rounds||[]).forEach(r=>(r.wars||[]).forEach(w=>{ if(w.status==="final"||w.a===ME||w.b===ME) return;
+    const ra=rival(w.a), rb=rival(w.b); if(!ra&&!rb) return;
+    const tip=ra&&rb?"both rivals, a close one costs them both":`root for ${esc(ra?w.b:w.a)}`;
+    out.push(`<div class="pv-row"><span class="k">R${r.n}</span><span class="who">${nm(w.a)} <span class="note">(${pos(w.a)})</span> vs ${nm(w.b)} <span class="note">(${pos(w.b)})</span><small>${w.status==="live"?"live "+w.aStars+"–"+w.bStars+" · ":""}${tip}</small></span><span class="gain ${ra&&rb?"warn":"up"}">${ra&&rb?"watch":"root"}</span></div>`); }));
+  return out.length?`<div class="label" style="margin-top:4px">Other wars that matter</div><div class="pv-list">${out.slice(0,4).join("")}</div>`:"";
+}
 function renderPath(){
-  const s=state, sec=$("pv-sec"); if(!s||!s.rounds) { sec.hidden=true; return; }
-  const w=pvThisWar(s), p=pvPromo(s);
-  sec.hidden=!(w||p);
-  $("pv-war-l").hidden=true; $("pv-war").innerHTML=w; $("pv-promo").innerHTML=p;
-  $("pv-note").textContent=s.curFull&&s.curFull.kind==="cwl"&&s.curFull.state==="inWar"?`R${s.curFull.round} live`:"";
+  const s=state, sec=$("pv-sec"); if(!s||!s.rounds||s.offSeason) { sec.hidden=true; return; }
+  const p=pvPromo(s), o=rivalWars(s);
+  sec.hidden=!(p||o);
+  $("pv-promo").innerHTML=p+o;
+  const c=s.curFull; $("pv-note").innerHTML=c&&c.kind==="cwl"&&c.state==="inWar"?`R${c.round} live`:"";
 }
 /* ---------- war log: our attacks + their attacks on us (newest first), one dropdown with a toggle ---------- */
 window.feedTab=window.feedTab==="all"?"atk":(window.feedTab||"atk");
@@ -966,7 +968,7 @@ function renderBoard(){
   sec.hidden=false;
   const C=b.cols, rows=b.rows.map(r=>Object.fromEntries(C.map((k,i)=>[k,r[i]])));
   $("lb-note").textContent=`${b.wars} round${b.wars===1?"":"s"}`;
-  $("podium").innerHTML=rows.slice(0,3).map((r,i)=>`<div class="pod p${i+1}"><span class="medal">${["🥇","🥈","🥉"][i]}</span><span class="tag">${i===0?"CWL MVP":"#"+(i+1)}</span><span class="who">${statsLink(r.n)}</span><small>${r.net??r.s}★ in ${r.att} · gave up ${r.given??"–"}★</small></div>`).join("");
+  $("podium").innerHTML=rows.slice(0,3).map((r,i)=>`<div class="mvp"><span class="lb">${["🥇","🥈","🥉"][i]}</span><span class="who">${statsLink(r.n)} <span class="note">TH${esc(r.th)}</span><small>${r.net??r.s}★ in ${r.att} · gave up ${r.given??"–"}★ a war</small></span><span class="sc num">${r.net??r.s}★</span></div>`).join("");
   const LB=window.lbAll?rows:rows.slice(0,10);
   $("lb-more").hidden=rows.length<=10; $("lb-more").textContent=window.lbAll?"Show top 10":`Load more (${rows.length-10} more players)`;
   $("lb").innerHTML=LB.map((r,i)=>`<tr data-lb="${esc(r.n)}"><td class="pos num">${i+1}</td><td class="clan">${statsLink(r.n)}<small>TH${esc(r.th)}</small></td><td class="num"><b>${r.net??r.s}</b><small class="note"> /${r.att}</small>${r.miss?` <small class="bad">(−${r.miss})</small>`:""}</td><td class="num">${r.given??"–"}</td><td class="num">${r.given!=null&&r.wars?Math.round(r.given*r.wars):"–"}</td><td class="num">${r.mvps?"⭐".repeat(Math.min(r.mvps,3))+(r.mvps>3?" x"+r.mvps:""):"–"}</td></tr>`).join("");
@@ -987,7 +989,7 @@ function renderTodo(){
   const sec=$("todo-sec"), el=$("todo"), m=state&&state.myWar;
   const live = m && (state.rounds||[]).some(r=>r.n===m.round && (r.wars||[]).some(w=>(w.a===ME||w.b===ME)&&w.status==="live"));
   if(!live){ sec.hidden=true; $("rally").hidden=true; return; }
-  sec.hidden=true; $("rally").hidden=false;   // attack list now lives in the Battle day card
+  sec.hidden=true; $("rally").hidden=true; return;   // attack list lives on Current War
   const left=m.pending.length, done=m.done, roster=m.roster||30;
   let ends="";
   if(m.endTime){ const ms=new Date(m.endTime)-Date.now();
@@ -1246,10 +1248,44 @@ document.addEventListener("click",e=>{ const l=e.target.closest(".logo"); const 
 .gl-h b{font-family:var(--f-display);font-size:22px;font-weight:600;color:var(--h2,var(--ink))}
 .gl-h .note{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .gl-link{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--blue-ink);text-decoration:none}
-#glance,#den-top{display:grid;gap:6px}
+#glance,#den-top,#cwl-top{display:grid;gap:6px}
 details.more-stats>summary{cursor:pointer;list-style:none;font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--blue-ink);padding:2px 0}
 details.more-stats>summary::-webkit-details-marker{display:none}
 details.more-stats>summary::after{content:" ▾"}details.more-stats[open]>summary::after{content:" ▴"}
 details.more-stats[open]{display:grid;gap:6px}
+</style>
+<style>
+/* ===== Nov 10: standings + leaderboard fit phone width, compact top 3 ===== */
+#stand-sec table{table-layout:fixed;width:100%;min-width:0}
+#stand-sec th:nth-child(6),#stand-sec td:nth-child(6){display:none}
+#stand-sec th,#stand-sec td{padding:7px 4px;font-size:12.5px}
+#stand-sec th{font-size:9.5px;letter-spacing:.02em}
+#stand-sec th:nth-child(1),#stand-sec td:nth-child(1){width:24px;text-align:center}
+#stand-sec td:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#stand-sec th:nth-child(3),#stand-sec td:nth-child(3){width:44px}
+#stand-sec th:nth-child(4),#stand-sec td:nth-child(4){width:40px}
+#stand-sec th:nth-child(5),#stand-sec td:nth-child(5){width:52px}
+#stand-sec th:nth-child(7),#stand-sec td:nth-child(7){width:60px;padding-right:8px}
+#stand-sec .tbl-wrap{overflow-x:hidden}
+#lb-sec table{table-layout:fixed;width:100%;min-width:0}
+#lb-sec th,#lb-sec td{padding:6px 4px;font-size:12.5px}
+#lb-sec th{font-size:9.5px;letter-spacing:.02em}
+#lb-sec th:nth-child(1),#lb-sec td:nth-child(1){width:24px;text-align:center}
+#lb-sec td:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#lb-sec th:nth-child(3),#lb-sec td:nth-child(3){width:52px}
+#lb-sec th:nth-child(4),#lb-sec td:nth-child(4){width:56px}
+#lb-sec th:nth-child(5),#lb-sec td:nth-child(5){width:38px}
+#lb-sec th:nth-child(6),#lb-sec td:nth-child(6){width:44px;padding-right:8px}
+#lb-sec .tbl-wrap{overflow-x:hidden}
+.mvp-list{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.mvp{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-top:1px solid var(--line)}
+.mvp:first-child{border-top:0}
+.mvp .lb{font-family:var(--f-mono);font-size:11px;color:var(--faint);line-height:1.3}
+.mvp .who{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.mvp .who small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);white-space:normal}
+.pill.live{background:var(--live-soft);color:var(--live)}
+.mvp-sm .mvp{padding:6px 10px;gap:8px;grid-template-columns:30px minmax(0,1fr) auto}
+.mvp-sm .mvp .who{font-size:14px}.mvp-sm .mvp .who small{font-size:11.5px}
+.mvp-sm .mvp .sc{font-family:var(--f-mono);font-weight:600;font-size:14px}
 </style>
 </body></html>
