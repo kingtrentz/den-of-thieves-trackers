@@ -1,0 +1,25 @@
+{
+  "name": "Den of Thieves Tracker",
+  "short_name": "Den of Thieves",
+  "description": "Den of Thieves Clash of Clans war, CWL & clan tracker.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e0c0c",
+  "theme_color": "#1a1111",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
